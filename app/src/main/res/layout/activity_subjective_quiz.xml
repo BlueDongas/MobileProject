@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 단어 질문 텍스트 -->
+    <TextView
+        android:id="@+id/textViewQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사과"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp" />
+
+    <!-- 사용자가 정답을 입력할 수 있는 필드 -->
+    <EditText
+        android:id="@+id/editTextAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="영어 뜻 입력"
+        android:inputType="text"
+        android:padding="16dp" />
+
+    <!-- 정답 제출 버튼 -->
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="제출"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp" />
+</LinearLayout>

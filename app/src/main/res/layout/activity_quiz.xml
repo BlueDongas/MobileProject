@@ -1,0 +1,140 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/img_2"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/TransparentProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:progress="30"
+            android:max="30"
+            android:indeterminate="false"
+            android:progressTint="#2196F3"
+            android:backgroundTint="#CCCCCC" />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="설명에 알맞은 영단어를 고르세요!"
+        android:textSize="20sp"
+        android:textColor="#3B1C32"
+        android:gravity="center"
+        android:layout_marginTop="50dp"/>
+
+<!--    &lt;!&ndash; 타이머 텍스트 &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/timer_text"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="30s"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="#FF0000"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginBottom="16dp" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <!-- 문제를 표시할 텍스트 -->
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="질문이 여기에 표시됩니다."
+            android:textSize="28sp"
+            android:layout_marginBottom="60dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:rowCount="2"
+            android:columnCount="2"
+            android:padding="16dp">
+
+            <Button
+                android:id="@+id/selection1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="8dp"
+                android:text="선택지 1"
+                style="@style/TransparentButton"
+                />
+            <Button
+                android:id="@+id/selection2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="8dp"
+                android:text="선택지 2"
+                style="@style/TransparentButton" />
+
+            <Button
+                android:id="@+id/selection3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="8dp"
+                android:text="선택지 3"
+                style="@style/TransparentButton" />
+
+            <Button
+                android:id="@+id/selection4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="8dp"
+                android:text="선택지 4"
+                style="@style/TransparentButton" />
+
+        </GridLayout>
+    </LinearLayout>
+    <!-- "다음" 버튼 -->
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        android:visibility="gone"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 기존 스타일 정의는 그대로 유지 -->
+    <style name="TransparentButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">#311B92</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">20sp</item>
+    </style>
+
+    <!-- ProgressBar 투명 스타일 -->
+    <style name="TransparentProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:progressTint">@android:color/transparent</item>
+        <item name="android:indeterminateTint">@android:color/transparent</item>
+    </style>
+
+</resources>
+
+
+

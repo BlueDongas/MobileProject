@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 상단: 진행 상태 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:layout_weight="0.8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3/10"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:id="@+id/Txtprogress"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
+    <!-- 중앙: 마스킹된 문장 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.4">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="She ___ to the store yesterday."
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:id="@+id/TxtQ"/>
+    </LinearLayout>
+
+    <!-- 하단: 입력 및 타이머 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp">
+
+        <EditText
+            android:id="@+id/answerInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Enter the word"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/confirmBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확인" />
+
+    </LinearLayout>
+
+    <!-- 타이머 -->
+    <TextView
+        android:id="@+id/timerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="남은 시간: 00:30"
+        android:textSize="16sp" />
+
+    <!-- 맨 아래: 추가 버튼 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:layout_weight="1.2">
+        <Button
+            android:id="@+id/prevSentenceBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이전 문장" />
+        <Button
+            android:id="@+id/nextSentenceBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="다음 문장" />
+        <Button
+            android:id="@+id/quitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="포기하기" />
+    </LinearLayout>
+</LinearLayout>
