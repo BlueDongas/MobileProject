@@ -1,4 +1,4 @@
-package com.example.engquiz;
+package com.example.engquiz.yongjin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.engquiz.R;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,17 +21,20 @@ public class QuizActivity extends AppCompatActivity {
     private QuizTimer quizTimer;
 
     private TextView questionText, timeText;
-    private Button selection1, selection2, selection3, selection4, nextButton;
+    private Button selection1, selection2, selection3, selection4, nextButton, prevButton, stopButton;
 
     private List<Question> questionList;
     private int currentQuestionIndex = 0;
     private int score = 0;
+
+    private boolean isPaused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
 
         // UI 불러오기
         questionText = findViewById(R.id.question_text);
@@ -39,6 +45,8 @@ public class QuizActivity extends AppCompatActivity {
         selection4 = findViewById(R.id.selection4);
         // 다음 button
         nextButton = findViewById(R.id.next_button);
+        prevButton = findViewById(R.id.prev_button);
+        stopButton = findViewById(R.id.stop_button);
         // timertext
         timeText = findViewById(R.id.progress_text);
 
@@ -87,6 +95,31 @@ public class QuizActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // 이전 버튼 동작 정의
+        prevButton.setOnClickListener(view -> {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                quizDisplay();
+                quizTimer.reset();
+                quizTimer.start();
+            }
+        });
+
+        // 중단 버튼 동작 정의
+        stopButton.setOnClickListener(view -> {
+            if (!isPaused) {
+                // 타이머 중단
+                quizTimer.pause();
+                isPaused = true; // 중단 상태로 전환
+                stopButton.setText("재시작"); // 버튼 텍스트 변경
+            } else {
+                // 타이머 재시작
+                quizTimer.start();
+                isPaused = false; // 실행 상태로 전환
+                stopButton.setText("중단"); // 버튼 텍스트 변경
+            }
+        });
     }
 
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
@@ -127,8 +160,12 @@ public class QuizActivity extends AppCompatActivity {
         selection3.setText(currentQuestion.getOptions().get(2));
         selection4.setText(currentQuestion.getOptions().get(3));
 
-        // 다음 button 감추기
-        nextButton.setVisibility(View.GONE);
+        // 첫번째 문제에서 이전 button 비활성화
+        if (currentQuestionIndex == 0) {
+            prevButton.setEnabled(false);
+        } else {
+            prevButton.setEnabled(true);
+        }
     }
 
     // 정답 확인 후 점수
