@@ -119,6 +119,7 @@ public class QuizActivity extends AppCompatActivity {
             } else {
                 // 결과 화면 이동
                 // intent로 score 전송
+                // name "score" 바꾸면 안돼
                 Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
                 intent.putExtra("score", score);
                 startActivity(intent);
