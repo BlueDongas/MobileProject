@@ -129,6 +129,18 @@
                 style="@style/TransparentButton" />
 
         </GridLayout>
+
+        <!-- 정답 확인 버튼 -->
+        <Button
+            android:id="@+id/check_answer_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="정답 확인"
+            android:backgroundTint="#FFC107"
+            android:textColor="#FFFFFF"
+            android:layout_margin="8dp"
+            android:enabled="false" />
+
     </LinearLayout>
     <!-- 하단 버튼 영역 -->
     <LinearLayout

@@ -21,13 +21,17 @@ public class QuizActivity extends AppCompatActivity {
     private QuizTimer quizTimer;
 
     private TextView questionText, timeText;
-    private Button selection1, selection2, selection3, selection4, nextButton, prevButton, stopButton;
+    private Button selection1, selection2, selection3, selection4, nextButton, prevButton, stopButton, checkAnswerButton;
 
     private List<Question> questionList;
     private int currentQuestionIndex = 0;
     private int score = 0;
 
     private boolean isPaused = false;
+
+    private String selectedAnswer; // 사용자가 선택한 답변
+    private Button clickedButton;  // 사용자가 클릭한 버튼
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +47,12 @@ public class QuizActivity extends AppCompatActivity {
         selection2 = findViewById(R.id.selection2);
         selection3 = findViewById(R.id.selection3);
         selection4 = findViewById(R.id.selection4);
-        // 다음 button
+        // 다음, 이전, 중단, 정답 확인 button
         nextButton = findViewById(R.id.next_button);
         prevButton = findViewById(R.id.prev_button);
         stopButton = findViewById(R.id.stop_button);
+        checkAnswerButton = findViewById(R.id.check_answer_button);
+
         // timertext
         timeText = findViewById(R.id.progress_text);
 
@@ -62,17 +68,41 @@ public class QuizActivity extends AppCompatActivity {
 
         // selection1~4 button 연결 동작 (공통)
         View.OnClickListener optionClickListener = view -> {
-            Button clickedButton = (Button) view;
+            clickedButton = (Button) view;
             // 선택한 button 가져오기
-            String selectedAnswer = clickedButton.getText().toString();
-            // 그 선택지의 정답 여부 확인
-            invalidAnswer(selectedAnswer);
+            selectedAnswer = clickedButton.getText().toString();
+
+            // checkAnswerButton 활성화
+            checkAnswerButton.setEnabled(true);
+            checkAnswerButton.setVisibility(View.VISIBLE);
         };
+
+        // 정답 확인 버튼 클릭 이벤트
+        checkAnswerButton.setOnClickListener(view -> {
+            Question currentQuestion = questionList.get(currentQuestionIndex);
+
+            quizTimer.pause();
+
+            if (selectedAnswer.equals(currentQuestion.getAnswer())) {
+                // 정답일 경우
+                clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
+                score++;
+            } else {
+                // 오답일 경우
+                clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
+            }
+
+            disableAllButtons();
+
+        });
 
         selection1.setOnClickListener(optionClickListener);
         selection2.setOnClickListener(optionClickListener);
         selection3.setOnClickListener(optionClickListener);
         selection4.setOnClickListener(optionClickListener);
+
         
         // 다음 button 기능 정의
         nextButton.setOnClickListener(view -> {
@@ -120,6 +150,7 @@ public class QuizActivity extends AppCompatActivity {
                 stopButton.setText("중단"); // 버튼 텍스트 변경
             }
         });
+
     }
 
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
@@ -160,23 +191,59 @@ public class QuizActivity extends AppCompatActivity {
         selection3.setText(currentQuestion.getOptions().get(2));
         selection4.setText(currentQuestion.getOptions().get(3));
 
+        // 문제 넘어갈 때, button refresh
+        refreshButton(selection1);
+        refreshButton(selection2);
+        refreshButton(selection3);
+        refreshButton(selection4);
+
         // 첫번째 문제에서 이전 button 비활성화
         if (currentQuestionIndex == 0) {
             prevButton.setEnabled(false);
         } else {
             prevButton.setEnabled(true);
         }
+
+        // checkAnswerButton 비활성화
+        checkAnswerButton.setVisibility(View.GONE);
+        checkAnswerButton.setEnabled(false);
     }
 
-    // 정답 확인 후 점수
-    private void invalidAnswer(String selectedAnswer) {
-        // questionList에서 현재 문제 가져오기
-        Question currentQuestion = questionList.get(currentQuestionIndex);
-        // 정답 맞으면 점수 올리기
-        if (selectedAnswer.equals(currentQuestion.getAnswer())) {
-            score++;
-        }
-        // 다음 button 드러내기
-        nextButton.setVisibility(View.VISIBLE);
+//    // 정답 확인 후 점수
+//    private void invalidAnswer(String selectedAnswer, Button userClickButton) {
+//        // questionList quiz 가져오기
+//        Question currentQuestion = questionList.get(currentQuestionIndex);
+//        // 정답일 경우
+//        if (selectedAnswer.equals(currentQuestion.getAnswer())) {
+//            userClickButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+//            // 체크 아이콘
+//            userClickButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
+//            score++;
+//        } else {
+//            // 오답일 경우
+//            userClickButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+//            // x 아이콘
+//            userClickButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
+//        }
+//
+//
+////        // 다음 button 드러내기
+////        nextButton.setVisibility(View.VISIBLE);
+//    }
+
+    // 정답, 오답의 체크 표시 이후 다음 문제로 넘어갈 때 button refresh 해야함
+    private void refreshButton(Button refreshButton) {
+        refreshButton.setEnabled(true);
+        refreshButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        // 표시한 아이콘 refresh
+        refreshButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+    }
+
+    // 정답 확인 후 button 비활성화
+    private void disableAllButtons() {
+        selection1.setEnabled(false);
+        selection2.setEnabled(false);
+        selection3.setEnabled(false);
+        selection4.setEnabled(false);
     }
 }
