@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.engquiz.yongjin.QuizActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     // 이동 button 정의
