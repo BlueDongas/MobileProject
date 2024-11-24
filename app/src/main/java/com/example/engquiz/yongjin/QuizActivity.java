@@ -2,10 +2,13 @@ package com.example.engquiz.yongjin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.engquiz.R;
@@ -13,6 +16,12 @@ import com.example.engquiz.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class QuizActivity extends AppCompatActivity {
@@ -23,7 +32,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView questionText, timeText;
     private Button selection1, selection2, selection3, selection4, nextButton, prevButton, stopButton, checkAnswerButton;
 
-    private List<Question> questionList;
+    private List<Question> questionList = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int score = 0;
 
@@ -60,11 +69,14 @@ public class QuizActivity extends AppCompatActivity {
 
         // QuizTimer 초기화 (30초 제한 시간)
         quizTimer = new QuizTimer(30000, timeText, progressBar);
-        quizTimer.start();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://18.205.64.172:25000/") // Flask 서버 URL
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        startQuiz();
+        QuizApi quizApi = retrofit.create(QuizApi.class);
 
-        quizDisplay();
+        fetchQuestions(quizApi,1);
 
         // selection1~4 button 연결 동작 (공통)
         View.OnClickListener optionClickListener = view -> {
@@ -83,7 +95,7 @@ public class QuizActivity extends AppCompatActivity {
 
             quizTimer.pause();
 
-            if (selectedAnswer.equals(currentQuestion.getAnswer())) {
+            if (selectedAnswer.equals(currentQuestion.getEnglishWord())) {
                 // 정답일 경우
                 clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                 clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
@@ -156,28 +168,27 @@ public class QuizActivity extends AppCompatActivity {
 
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
     // 문제를 영어로 제시하고 그 영어에 대한 문제에서 모르는 단어 같은 걸로 활용해서 다른 걸 만들어 볼까...?
-    private void startQuiz() {
-        questionList = new ArrayList<>();
 
-        questionList.add(new Question(
-                "종이를 자르는 데 사용하는 도구는 무엇인가요?",
-                Arrays.asList("Scissors", "Hammer", "Pencil", "Notebook"),
-                "Scissors"
-        ));
+    private void fetchQuestions(QuizApi quizApi, int level) {
+        quizApi.getWords(level).enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    questionList = response.body();
+                    quizTimer.start(); // 타이머 시작
+                    quizDisplay(); // 첫 번째 질문 표시
+                } else {
+                    Toast.makeText(QuizActivity.this, "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        questionList.add(new Question(
-                "시간을 알려주는 장치는 무엇인가요?",
-                Arrays.asList("Clock", "Phone", "Chair", "Pen"),
-                "Clock"
-        ));
-
-        questionList.add(new Question(
-                "날씨를 피하기 위해 사용하는 것은 무엇인가요?",
-                Arrays.asList("Umbrella", "Shoes", "Bag", "Hat"),
-                "Umbrella"
-        ));
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable t) {
+                Toast.makeText(QuizActivity.this, "API 호출 실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("QuizActivity", "API Error", t);
+            }
+        });
     }
-    
     // 정답, 오답, 점수 추가 기능 만들어야함
 
 
@@ -186,11 +197,16 @@ public class QuizActivity extends AppCompatActivity {
         // questionList에서 list 불러오기
         Question currentQuestion = questionList.get(currentQuestionIndex);
 
-        questionText.setText(currentQuestion.getQuestion());
-        selection1.setText(currentQuestion.getOptions().get(0));
-        selection2.setText(currentQuestion.getOptions().get(1));
-        selection3.setText(currentQuestion.getOptions().get(2));
-        selection4.setText(currentQuestion.getOptions().get(3));
+        questionText.setText(currentQuestion.getKoreanWord());
+        List<String> options = new ArrayList<>(4);
+        options.add(currentQuestion.getEnglishWord()); //정답 옵션
+        for (int i=0;i<3;i++){
+            options.add("오답"+(i+1));
+        }
+        selection1.setText(options.get(0));
+        selection2.setText(options.get(1));
+        selection3.setText(options.get(2));
+        selection4.setText(options.get(3));
 
         // 문제 넘어갈 때, button refresh
         refreshButton(selection1);

@@ -5,21 +5,15 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
 public class Question {
-    // 문제
-    private String question;
-    // 정답지
-    private List<String> options;
-    // 정답
-    private String answer;          
+    private String english_word;   // 영어 단어
+    private String korean_word;   // 한글 뜻
+    private String example;       // 예문
+    private String explanation;   // 설명
 
-//    public Question(String question, List<String> options, String answer) {
-//        this.question = question;
-//        this.options = options;
-//        this.answer = answer;
-//    }
-
-
+    // Getter 메서드
+    public String getEnglishWord() { return english_word; }
+    public String getKoreanWord() { return korean_word; }
+    public String getExample() { return example; }
+    public String getExplanation() { return explanation; }
 }
