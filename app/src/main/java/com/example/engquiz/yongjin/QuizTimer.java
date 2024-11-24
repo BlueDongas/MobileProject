@@ -42,12 +42,12 @@ public class QuizTimer {
                 progressBar.setProgress(secondsRemaining);
 
                 // Timer 텍스트 업데이트
-                timerText.setText(secondsRemaining + "s");
+                timerText.setText(secondsRemaining + "초");
             }
 
             @Override
             public void onFinish() {
-                timerText.setText("Time's up!");
+                timerText.setText("시간 초과!");
                 progressBar.setProgress(0);
             }
         };
@@ -66,7 +66,7 @@ public class QuizTimer {
         pause();
         // totalTime에서 시작하니까 29s에서 시작함
         timeRemaining = totalTime + 1000;
-        timerText.setText((int) (totalTime / 1000) + "s");
+        timerText.setText((int) (totalTime / 1000) + "초");
         progressBar.setProgress(progressBar.getMax());
     }
 }
