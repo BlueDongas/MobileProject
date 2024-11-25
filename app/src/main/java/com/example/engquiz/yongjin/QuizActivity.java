@@ -29,9 +29,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private boolean isPaused = false;
 
-    private String selectedAnswer; // 사용자가 선택한 답변
-    private Button clickedButton;  // 사용자가 클릭한 버튼
-
+    // 사용자가 선택한 답변, button
+    private String selectedAnswer;
+    private Button clickedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +94,8 @@ public class QuizActivity extends AppCompatActivity {
                 clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
             }
 
+            // 다른 button은 모두 비활성화
             disableAllButtons();
-
         });
 
         selection1.setOnClickListener(optionClickListener);
@@ -113,8 +113,10 @@ public class QuizActivity extends AppCompatActivity {
             quizTimer.start();
 
             currentQuestionIndex++;
+
+            // 다음 quiz 이동
             if (currentQuestionIndex < questionList.size()) {
-                // 다음 quiz 이동
+
                 quizDisplay();
             } else {
                 // 결과 화면 이동
@@ -122,7 +124,9 @@ public class QuizActivity extends AppCompatActivity {
                 // name "score" 바꾸면 안돼
                 Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
                 intent.putExtra("score", score);
+
                 startActivity(intent);
+
                 finish();
             }
         });
@@ -153,10 +157,12 @@ public class QuizActivity extends AppCompatActivity {
         });
 
     }
-
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>원겸이가 DB로 추가 할 부분<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
     // 문제를 영어로 제시하고 그 영어에 대한 문제에서 모르는 단어 같은 걸로 활용해서 다른 걸 만들어 볼까...?
     private void startQuiz() {
+        // Question의 question, options, answer 정의
+
         questionList = new ArrayList<>();
 
         questionList.add(new Question(
@@ -177,6 +183,7 @@ public class QuizActivity extends AppCompatActivity {
                 "Umbrella"
         ));
     }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     
     // 정답, 오답, 점수 추가 기능 만들어야함
 
