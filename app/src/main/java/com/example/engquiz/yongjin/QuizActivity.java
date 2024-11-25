@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.engquiz.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -222,7 +221,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         // checkAnswerButton 비활성화
-        checkAnswerButton.setVisibility(View.GONE);
+//        checkAnswerButton.setVisibility(View.GONE);
         checkAnswerButton.setEnabled(false);
     }
 
