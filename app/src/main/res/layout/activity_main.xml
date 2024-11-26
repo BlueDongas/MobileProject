@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -19,6 +20,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
 
+    <!-- LV 텍스트-->
+    <TextView
+        android:id="@+id/lv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LV 선택"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toStartOf="@id/LVspinner"
+        app:layout_constraintBaseline_toBaselineOf="@id/LVspinner"
+        app:layout_constraintStart_toStartOf="@+id/LVspinner"
+        android:layout_marginEnd="8dp" /> <!-- 간격을 8dp로 설정 -->
+
+    <!-- LV 스피너 -->
+    <Spinner
+        android:id="@+id/LVspinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/go_chaeun_quiz"
+        app:layout_constraintStart_toEndOf="@id/lv_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" /> <!-- 제목과의 간격을 16dp로 설정 -->
     <!-- 채은 퀴즈 버튼 -->
     <Button
         android:id="@+id/go_chaeun_quiz"

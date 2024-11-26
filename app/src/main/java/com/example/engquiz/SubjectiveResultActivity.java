@@ -28,7 +28,7 @@ public class SubjectiveResultActivity extends AppCompatActivity {
         textViewScore.setText("당신의 점수는 " + score + " / " + totalQuestions + "입니다.");
 
         goMain.setOnClickListener(v -> {
-            Intent i = new Intent(SubjectiveResultActivity.this, SubjectiveActivity.class);
+            Intent i = new Intent(SubjectiveResultActivity.this, MainActivity.class);
             startActivity(i);
         });
 

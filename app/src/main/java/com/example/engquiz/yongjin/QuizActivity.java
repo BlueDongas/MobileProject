@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +52,13 @@ public class QuizActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        
+
+        //선택된 LV 받아오기
+        Intent Preintent = getIntent();
+        int LV = Preintent.getIntExtra("LV",-1);
+
+
+
         // UI 불러오기
         questionText = findViewById(R.id.question_text);
         // selection 1 ~ 4
@@ -79,7 +87,8 @@ public class QuizActivity extends AppCompatActivity {
                 .build();
 
         QuizApi quizApi = retrofit.create(QuizApi.class);
-        fetchQuestions(quizApi,1);
+
+        fetchQuestions(quizApi,LV);
 
         // selection1~4 button 연결 동작 (공통)
         View.OnClickListener optionClickListener = view -> {
@@ -112,7 +121,6 @@ public class QuizActivity extends AppCompatActivity {
                 clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
             }
-
 
             disableAllButtons();
 
@@ -271,5 +279,4 @@ public class QuizActivity extends AppCompatActivity {
         selection3.setEnabled(false);
         selection4.setEnabled(false);
     }
-
 }
