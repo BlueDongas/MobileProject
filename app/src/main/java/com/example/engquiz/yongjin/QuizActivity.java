@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.engquiz.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,14 +43,14 @@ public class QuizActivity extends AppCompatActivity {
     private String selectedAnswer; // 사용자가 선택한 답변
     private Button clickedButton;  // 사용자가 클릭한 버튼
 
+    private HashMap<Integer, Long> remainingTime = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
-
+        
         // UI 불러오기
         questionText = findViewById(R.id.question_text);
         // selection 1 ~ 4
@@ -61,20 +64,21 @@ public class QuizActivity extends AppCompatActivity {
         stopButton = findViewById(R.id.stop_button);
         checkAnswerButton = findViewById(R.id.check_answer_button);
 
-        // timertext
+        // 남은 시간
         timeText = findViewById(R.id.progress_text);
 
         progressBar = findViewById(R.id.progress_bar);
 
-        // QuizTimer 초기화 (30초 제한 시간)
-        quizTimer = new QuizTimer(30000, timeText, progressBar);
+         // 수정 -> 전체 QuizTimer로 변경(5분 제한 시간)
+        quizTimer = new QuizTimer(3000, timeText, progressBar, this, score);
+        quizTimer.start();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://18.205.64.172:25000/") // Flask 서버 URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         QuizApi quizApi = retrofit.create(QuizApi.class);
-
         fetchQuestions(quizApi,1);
 
         // selection1~4 button 연결 동작 (공통)
@@ -92,7 +96,11 @@ public class QuizActivity extends AppCompatActivity {
         checkAnswerButton.setOnClickListener(view -> {
             Question currentQuestion = questionList.get(currentQuestionIndex);
 
-            quizTimer.pause();
+            // 이제는 중단할 필요가 없음
+//            quizTimer.pause();
+
+            currentQuestion.setAnswered(true);
+            currentQuestion.setSelectedAnswer(selectedAnswer);
 
             if (selectedAnswer.equals(currentQuestion.getEnglishWord())) {
                 // 정답일 경우
@@ -104,6 +112,7 @@ public class QuizActivity extends AppCompatActivity {
                 clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
             }
+
 
             disableAllButtons();
 
@@ -118,12 +127,11 @@ public class QuizActivity extends AppCompatActivity {
         // 다음 button 기능 정의
         nextButton.setOnClickListener(view -> {
 
-            // quizTimer(제한시간 30초)가 전체 문제의 제한시간인지 아닌지 선택
-            // 전체 제한시간 30초라면 아래의 quizTimer method 주석 처리
-            quizTimer.reset();
-            quizTimer.start();
-
+//            제한 시간을 전체 5분 설정
+//            quizTimer.reset();
+//            quizTimer.start();
             currentQuestionIndex++;
+
             if (currentQuestionIndex < questionList.size()) {
                 // 다음 quiz 이동
                 quizDisplay();
@@ -135,6 +143,7 @@ public class QuizActivity extends AppCompatActivity {
                 intent.putExtra("score", score);
                 startActivity(intent);
                 finish();
+//                endQuiz();
             }
         });
 
@@ -143,14 +152,12 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
                 quizDisplay();
-                quizTimer.reset();
-                quizTimer.start();
             }
         });
 
         // 중단 버튼 동작 정의
         stopButton.setOnClickListener(view -> {
-            if (!isPaused) {
+            if (!isPaused && quizTimer.getTimeRemaining() > 0) {
                 // 타이머 중단
                 quizTimer.pause();
                 isPaused = true; // 중단 상태로 전환
@@ -162,7 +169,6 @@ public class QuizActivity extends AppCompatActivity {
                 stopButton.setText("중단"); // 버튼 텍스트 변경
             }
         });
-
     }
 
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
@@ -174,7 +180,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     questionList = response.body();
-                    quizTimer.start(); // 타이머 시작
                     quizDisplay(); // 첫 번째 질문 표시
                 } else {
                     Toast.makeText(QuizActivity.this, "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
@@ -187,6 +192,7 @@ public class QuizActivity extends AppCompatActivity {
                 Log.e("QuizActivity", "API Error", t);
             }
         });
+
     }
     // 정답, 오답, 점수 추가 기능 만들어야함
 
@@ -199,9 +205,11 @@ public class QuizActivity extends AppCompatActivity {
         questionText.setText(currentQuestion.getKoreanWord());
         List<String> options = new ArrayList<>(4);
         options.add(currentQuestion.getEnglishWord()); //정답 옵션
+
         for (int i=0;i<3;i++){
             options.add("오답"+(i+1));
         }
+
         selection1.setText(options.get(0));
         selection2.setText(options.get(1));
         selection3.setText(options.get(2));
@@ -212,6 +220,21 @@ public class QuizActivity extends AppCompatActivity {
         refreshButton(selection2);
         refreshButton(selection3);
         refreshButton(selection4);
+
+        // 이미 정답을 확인한 문제일 때
+        if (currentQuestion.isAnswered()) {
+            disableAllButtons();
+            String selectedAnswer = currentQuestion.getSelectedAnswer();
+            Button selectedButton = getButtonByAnswer(selectedAnswer);
+
+            if (selectedAnswer.equals(currentQuestion.getEnglishWord())) {
+                selectedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                selectedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
+            } else {
+                selectedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                selectedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
+            }
+        }
 
         // 첫번째 문제에서 이전 button 비활성화
         if (currentQuestionIndex == 0) {
@@ -225,27 +248,13 @@ public class QuizActivity extends AppCompatActivity {
         checkAnswerButton.setEnabled(false);
     }
 
-//    // 정답 확인 후 점수
-//    private void invalidAnswer(String selectedAnswer, Button userClickButton) {
-//        // questionList quiz 가져오기
-//        Question currentQuestion = questionList.get(currentQuestionIndex);
-//        // 정답일 경우
-//        if (selectedAnswer.equals(currentQuestion.getAnswer())) {
-//            userClickButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-//            // 체크 아이콘
-//            userClickButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
-//            score++;
-//        } else {
-//            // 오답일 경우
-//            userClickButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-//            // x 아이콘
-//            userClickButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
-//        }
-//
-//
-////        // 다음 button 드러내기
-////        nextButton.setVisibility(View.VISIBLE);
-//    }
+    private Button getButtonByAnswer(String answer) {
+        if (selection1.getText().toString().equals(answer)) return selection1;
+        if (selection2.getText().toString().equals(answer)) return selection2;
+        if (selection3.getText().toString().equals(answer)) return selection3;
+        if (selection4.getText().toString().equals(answer)) return selection4;
+        return null;
+    }
 
     // 정답, 오답의 체크 표시 이후 다음 문제로 넘어갈 때 button refresh 해야함
     private void refreshButton(Button refreshButton) {
@@ -262,4 +271,5 @@ public class QuizActivity extends AppCompatActivity {
         selection3.setEnabled(false);
         selection4.setEnabled(false);
     }
+
 }

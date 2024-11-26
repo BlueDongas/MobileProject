@@ -20,5 +20,6 @@
         android:id="@+id/go_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="메인 화면으로 이동"/>
+        android:text="메인 화면으로 이동"
+        style="@style/TransparentButton"/>
 </LinearLayout>

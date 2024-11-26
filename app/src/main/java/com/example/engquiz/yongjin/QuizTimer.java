@@ -1,9 +1,13 @@
 package com.example.engquiz.yongjin;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -19,13 +23,19 @@ public class QuizTimer {
     private final TextView timerText;
     private final ProgressBar progressBar;
 
-    public QuizTimer(long totalTime, TextView timerText, ProgressBar progressBar) {
+    private int score;
+
+    private Context context;
+
+    public QuizTimer(long totalTime, TextView timerText, ProgressBar progressBar, Context context, int score) {
         this.totalTime = totalTime;
         this.timeRemaining = totalTime;
         this.timerText = timerText;
         this.progressBar = progressBar;
+        this.context = context;
+        this.score = score;
 
-        // ProgressBar 초기 설정
+        // progressBar 초기 설정
         progressBar.setMax((int) totalTime / 1000);
         progressBar.setProgress(progressBar.getMax());
     }
@@ -49,6 +59,12 @@ public class QuizTimer {
             public void onFinish() {
                 timerText.setText("시간 초과!");
                 progressBar.setProgress(0);
+
+                // QuizActivity로부터 context를 받아와 ResultActivity로 이동
+                Intent intent = new Intent(context, ResultActivity.class);
+                intent.putExtra("score", score); // 점수를 전달
+                context.startActivity(intent);
+                ((Activity) context).finish(); // 현재 액티비티 종료
             }
         };
         countDownTimer.start();
@@ -61,12 +77,12 @@ public class QuizTimer {
         }
     }
 
-    // 타이머 리셋
-    public void reset() {
-        pause();
-        // totalTime에서 시작하니까 29s에서 시작함
-        timeRemaining = totalTime + 1000;
-        timerText.setText((int) (totalTime / 1000) + "초");
-        progressBar.setProgress(progressBar.getMax());
-    }
+//    // 타이머 리셋
+//    public void reset() {
+//        pause();
+//        // totalTime에서 시작하니까 29s에서 시작함
+//        timeRemaining = totalTime + 1000;
+//        timerText.setText((int) (totalTime / 1000) + "초");
+//        progressBar.setProgress(progressBar.getMax());
+//    }
 }
