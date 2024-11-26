@@ -78,7 +78,7 @@ public class QuizActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
 
          // 수정 -> 전체 QuizTimer로 변경(5분 제한 시간)
-        quizTimer = new QuizTimer(3000, timeText, progressBar, this, score);
+        quizTimer = new QuizTimer(300000, timeText, progressBar, this, score);
         quizTimer.start();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -103,6 +103,10 @@ public class QuizActivity extends AppCompatActivity {
 
         // 정답 확인 버튼 클릭 이벤트
         checkAnswerButton.setOnClickListener(view -> {
+
+            // 이 버튼으로 결과 산정하기 때문에 누른 즉시 비활성화
+            checkAnswerButton.setEnabled(false);
+            
             Question currentQuestion = questionList.get(currentQuestionIndex);
 
             // 이제는 중단할 필요가 없음
@@ -168,13 +172,13 @@ public class QuizActivity extends AppCompatActivity {
             if (!isPaused && quizTimer.getTimeRemaining() > 0) {
                 // 타이머 중단
                 quizTimer.pause();
-                isPaused = true; // 중단 상태로 전환
-                stopButton.setText("재시작"); // 버튼 텍스트 변경
+                isPaused = true;
+                stopButton.setText("재시작");
             } else {
                 // 타이머 재시작
                 quizTimer.start();
-                isPaused = false; // 실행 상태로 전환
-                stopButton.setText("중단"); // 버튼 텍스트 변경
+                isPaused = false;
+                stopButton.setText("중단");
             }
         });
     }
