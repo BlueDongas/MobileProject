@@ -139,6 +139,11 @@ public class QuizActivity extends AppCompatActivity {
         // 다음 button 기능 정의
         nextButton.setOnClickListener(view -> {
 
+            // 현재 문제가 정답 확인되지 않은 경우 경고 메시지 출력
+            if (!questionList.get(currentQuestionIndex).isAnswered()) {
+                Toast.makeText(this, "정답을 확인한 후에만 다음 문제로 이동할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 //            제한 시간을 전체 5분 설정
 //            quizTimer.reset();
 //            quizTimer.start();
@@ -148,6 +153,7 @@ public class QuizActivity extends AppCompatActivity {
                 // 다음 quiz 이동
                 quizDisplay();
             } else {
+
                 // 결과 화면 이동
                 // intent로 score 전송
                 // name "score" 바꾸면 안돼
@@ -276,11 +282,22 @@ public class QuizActivity extends AppCompatActivity {
         refreshButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
     }
 
-    // 정답 확인 후 button 비활성화
+    // 정답 확인 후 button 비활성화를 위한 
     private void disableAllButtons() {
         selection1.setEnabled(false);
         selection2.setEnabled(false);
         selection3.setEnabled(false);
         selection4.setEnabled(false);
     }
+
+    // 모든 문제를 풀어야만 ResultActivity를 확인 할 수 있게 하기 위한
+    private boolean allQuestionsAnswered() {
+        for (Question question : questionList) {
+            if (!question.isAnswered()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
