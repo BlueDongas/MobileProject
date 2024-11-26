@@ -15,6 +15,8 @@ import com.example.engquiz.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +49,11 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        //선택된 LV 받아오기
+        Intent Preintent = getIntent();
+        int LV = Preintent.getIntExtra("LV",-1);
+
+
 
         // UI 불러오기
         questionText = findViewById(R.id.question_text);
@@ -75,7 +82,7 @@ public class QuizActivity extends AppCompatActivity {
 
         QuizApi quizApi = retrofit.create(QuizApi.class);
 
-        fetchQuestions(quizApi,1);
+        fetchQuestions(quizApi,LV);
 
         // selection1~4 button 연결 동작 (공통)
         View.OnClickListener optionClickListener = view -> {
