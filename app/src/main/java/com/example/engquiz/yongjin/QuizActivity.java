@@ -161,7 +161,7 @@ public class QuizActivity extends AppCompatActivity {
                 intent.putExtra("score", score);
                 startActivity(intent);
                 finish();
-//                endQuiz();
+//              endQuiz();
             }
         });
 
@@ -227,6 +227,7 @@ public class QuizActivity extends AppCompatActivity {
         for (int i=0;i<3;i++){
             options.add("오답"+(i+1));
         }
+        Collections.shuffle(options);
 
         selection1.setText(options.get(0));
         selection2.setText(options.get(1));
