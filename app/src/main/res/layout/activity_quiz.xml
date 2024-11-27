@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/img"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/img">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,8 +19,8 @@
             android:progress="30"
             android:max="30"
             android:indeterminate="false"
-            android:progressTint="#2196F3"
-            android:backgroundTint="#CCCCCC"
+            android:progressTint="#686D76"
+            android:backgroundTint="#EEEDEB"
             />
 
         <TextView
@@ -30,20 +30,21 @@
             android:layout_centerInParent="true"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+           />
+
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="설명에 알맞은 영단어를 고르세요!"
-        android:textSize="20sp"
-        android:textColor="#3B1C32"
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_marginTop="50dp"/>
-
-<!--    &lt;!&ndash; 타이머 텍스트 &ndash;&gt;-->
+        android:text="설명에 알맞은 영단어를 고르세요!"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+    <!--    &lt;!&ndash; 타이머 텍스트 &ndash;&gt;-->
 <!--    <TextView-->
 <!--        android:id="@+id/timer_text"-->
 <!--        android:layout_width="match_parent"-->
@@ -70,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="질문이 여기에 표시됩니다."
+            android:textColor="#000000"
             android:textSize="28sp"
             android:layout_marginBottom="60dp"
             android:gravity="center"/>
@@ -96,6 +98,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
+                android:background="@drawable/border_button"
                 android:text="선택지 1"
                 style="@style/TransparentButton"
                 />
@@ -106,6 +109,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
+                android:background="@drawable/border_button"
                 android:text="선택지 2"
                 style="@style/TransparentButton" />
 
@@ -116,6 +120,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
+                android:background="@drawable/border_button"
                 android:text="선택지 3"
                 style="@style/TransparentButton" />
 
@@ -126,6 +131,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
+                android:background="@drawable/border_button"
                 android:text="선택지 4"
                 style="@style/TransparentButton" />
 
@@ -136,11 +142,12 @@
             android:id="@+id/check_answer_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="정답 확인"
-            android:backgroundTint="#FFC107"
-            android:textColor="#FFFFFF"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:enabled="false" />
+            android:background="@drawable/button_design"
+            android:text="정답확인"
+            style="@style/designButton"/>
 
     </LinearLayout>
     <!-- 하단 버튼 영역 -->
@@ -149,40 +156,38 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        >
 
         <!-- 이전 버튼 -->
         <Button
             android:id="@+id/prev_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_design"
             android:text="이전"
-            android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp" />
+            style="@style/designButton" />
 
         <!-- 중단 버튼 -->
         <Button
             android:id="@+id/stop_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_design"
             android:text="중단"
-            android:backgroundTint="#FF5722"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp" />
+            style="@style/designButton" />
 
         <!-- 다음 버튼 -->
         <Button
             android:id="@+id/next_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_design"
             android:text="다음"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp"
-            android:visibility="visible" />
+            style="@style/designButton"/>
     </LinearLayout>
 </LinearLayout>

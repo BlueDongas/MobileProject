@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Button 투명 스타일  -->
-    <style name="TransparentButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:background">@android:color/transparent</item>
+<!--   투명하게 쓸거면 이렇게  Widget.MaterialComponents.Button.TextButton-->
+    <style name="TransparentButton" parent="Widget.AppCompat.Button">
         <item name="android:textColor">#000000</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">20sp</item>
@@ -14,6 +13,12 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:progressTint">@android:color/transparent</item>
         <item name="android:indeterminateTint">@android:color/transparent</item>
+    </style>
+
+    <style name="designButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>
