@@ -77,6 +77,10 @@ public class QuizTimer {
         }
     }
 
+    public long getTimeRemaining() {
+        return this.timeRemaining;
+    }
+
 //    // 타이머 리셋
 //    public void reset() {
 //        pause();
