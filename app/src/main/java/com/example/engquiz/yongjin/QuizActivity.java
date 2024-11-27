@@ -161,7 +161,7 @@ public class QuizActivity extends AppCompatActivity {
                 intent.putExtra("score", score);
                 startActivity(intent);
                 finish();
-//                endQuiz();
+//              endQuiz();
             }
         });
 

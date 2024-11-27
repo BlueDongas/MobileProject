@@ -72,117 +72,121 @@
             android:text="질문이 여기에 표시됩니다."
             android:textSize="28sp"
             android:layout_marginBottom="60dp"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:rowCount="2"
-            android:columnCount="2"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
 
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:rowCount="2"
+                android:columnCount="2"
+                android:padding="16dp">
+
+                <Button
+                    android:id="@+id/selection1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="선택지 1"
+                    style="@style/TransparentButton"
+                    />
+                <Button
+                    android:id="@+id/selection2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="선택지 2"
+                    style="@style/TransparentButton" />
+
+                <Button
+                    android:id="@+id/selection3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="선택지 3"
+                    style="@style/TransparentButton" />
+
+                <Button
+                    android:id="@+id/selection4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="선택지 4"
+                    style="@style/TransparentButton" />
+
+            </GridLayout>
+
+            <!-- 정답 확인 버튼 -->
             <Button
-                android:id="@+id/selection1"
-                android:layout_width="0dp"
+                android:id="@+id/check_answer_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
+                android:text="정답 확인"
+                android:backgroundTint="#FFC107"
+                android:textColor="#FFFFFF"
                 android:layout_margin="8dp"
-                android:text="선택지 1"
-                style="@style/TransparentButton"
-                />
-            <Button
-                android:id="@+id/selection2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_margin="8dp"
-                android:text="선택지 2"
-                style="@style/TransparentButton" />
+                android:enabled="false" />
 
-            <Button
-                android:id="@+id/selection3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_margin="8dp"
-                android:text="선택지 3"
-                style="@style/TransparentButton" />
-
-            <Button
-                android:id="@+id/selection4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_margin="8dp"
-                android:text="선택지 4"
-                style="@style/TransparentButton" />
-
-        </GridLayout>
-
-        <!-- 정답 확인 버튼 -->
-        <Button
-            android:id="@+id/check_answer_button"
+        </LinearLayout>
+        <!-- 하단 버튼 영역 -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="정답 확인"
-            android:backgroundTint="#FFC107"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp"
-            android:enabled="false" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
 
+            <!-- 이전 버튼 -->
+            <Button
+                android:id="@+id/prev_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="이전"
+                android:backgroundTint="#2196F3"
+                android:textColor="#FFFFFF"
+                android:layout_margin="8dp" />
+
+            <!-- 중단 버튼 -->
+            <Button
+                android:id="@+id/stop_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="중단"
+                android:backgroundTint="#FF5722"
+                android:textColor="#FFFFFF"
+                android:layout_margin="8dp" />
+
+            <!-- 다음 버튼 -->
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="다음"
+                android:backgroundTint="#4CAF50"
+                android:textColor="#FFFFFF"
+                android:layout_margin="8dp"
+                android:visibility="visible" />
+        </LinearLayout>
     </LinearLayout>
-    <!-- 하단 버튼 영역 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp">
 
-        <!-- 이전 버튼 -->
-        <Button
-            android:id="@+id/prev_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="이전"
-            android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp" />
 
-        <!-- 중단 버튼 -->
-        <Button
-            android:id="@+id/stop_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="중단"
-            android:backgroundTint="#FF5722"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp" />
-
-        <!-- 다음 버튼 -->
-        <Button
-            android:id="@+id/next_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="다음"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF"
-            android:layout_margin="8dp"
-            android:visibility="visible" />
-    </LinearLayout>
 </LinearLayout>
