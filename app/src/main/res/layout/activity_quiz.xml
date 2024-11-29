@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/img">
+    android:padding="16dp">
+
+<!--    android:background="@drawable/background_img"-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,9 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
+            style="@style/designTextView"
            />
 
 
@@ -42,8 +41,7 @@
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:text="설명에 알맞은 영단어를 고르세요!"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        style="@style/designTextView"/>
     <!--    &lt;!&ndash; 타이머 텍스트 &ndash;&gt;-->
 <!--    <TextView-->
 <!--        android:id="@+id/timer_text"-->
@@ -98,7 +96,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
-                android:background="@drawable/border_button"
+                android:background="@drawable/button_box1"
                 android:text="선택지 1"
                 style="@style/TransparentButton"
                 />
@@ -109,7 +107,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
-                android:background="@drawable/border_button"
+                android:background="@drawable/button_box1"
                 android:text="선택지 2"
                 style="@style/TransparentButton" />
 
@@ -120,7 +118,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
-                android:background="@drawable/border_button"
+                android:background="@drawable/button_box1"
                 android:text="선택지 3"
                 style="@style/TransparentButton" />
 
@@ -131,7 +129,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
-                android:background="@drawable/border_button"
+                android:background="@drawable/button_box1"
                 android:text="선택지 4"
                 style="@style/TransparentButton" />
 
@@ -145,7 +143,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_margin="8dp"
-            android:background="@drawable/button_design"
+            android:background="@drawable/button_box2"
             android:text="정답확인"
             style="@style/designButton"/>
 
@@ -164,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:background="@drawable/button_design"
+            android:background="@drawable/button_box2"
             android:text="이전"
             style="@style/designButton" />
 
@@ -176,7 +174,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_marginRight="20dp"
-            android:background="@drawable/button_design"
+            android:background="@drawable/button_box2"
             android:text="중단"
             style="@style/designButton" />
 
@@ -186,7 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:background="@drawable/button_design"
+            android:background="@drawable/button_box2"
             android:text="다음"
             style="@style/designButton"/>
     </LinearLayout>

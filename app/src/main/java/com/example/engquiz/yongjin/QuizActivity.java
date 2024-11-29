@@ -14,12 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.engquiz.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,10 +38,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private boolean isPaused = false;
 
-    private String selectedAnswer; // 사용자가 선택한 답변
-    private Button clickedButton;  // 사용자가 클릭한 버튼
-
-    private HashMap<Integer, Long> remainingTime = new HashMap<>();
+    // 선택한 답변과 고른 button
+    private String selectedAnswer;
+    private Button clickedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +51,6 @@ public class QuizActivity extends AppCompatActivity {
         //선택된 LV 받아오기
         Intent Preintent = getIntent();
         int LV = Preintent.getIntExtra("LV",-1);
-
-
 
         // UI 불러오기
         questionText = findViewById(R.id.question_text);
@@ -118,12 +111,12 @@ public class QuizActivity extends AppCompatActivity {
             if (selectedAnswer.equals(currentQuestion.getEnglishWord())) {
                 // 정답일 경우
                 clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-                clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
+                clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.button_true_icon, 0);
                 score++;
             } else {
                 // 오답일 경우
                 clickedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-                clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
+                clickedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.button_false_icon, 0);
             }
 
             disableAllButtons();
@@ -134,7 +127,6 @@ public class QuizActivity extends AppCompatActivity {
         selection2.setOnClickListener(optionClickListener);
         selection3.setOnClickListener(optionClickListener);
         selection4.setOnClickListener(optionClickListener);
-
         
         // 다음 button 기능 정의
         nextButton.setOnClickListener(view -> {
@@ -248,10 +240,10 @@ public class QuizActivity extends AppCompatActivity {
 
             if (selectedAnswer.equals(currentQuestion.getEnglishWord())) {
                 selectedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-                selectedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_true_ic, 0);
+                selectedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.button_true_icon, 0);
             } else {
                 selectedButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-                selectedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checking_button_false_ic, 0);
+                selectedButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.button_false_icon, 0);
             }
         }
 

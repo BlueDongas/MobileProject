@@ -1,4 +1,4 @@
-package com.example.engquiz;
+package com.example.engquiz.sheunghoon;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.engquiz.R;
 
 public class SubjectiveActivity extends AppCompatActivity {
 

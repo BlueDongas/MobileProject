@@ -29,13 +29,13 @@
         <activity android:name=".yongjin.QuizActivity"/>
 
 <!--        채은-->
-        <activity android:name=".SentenceActivity"/>
-        <activity android:name=".SentenceResultActivity"/>
+        <activity android:name=".chaeun.SentenceActivity"/>
+        <activity android:name=".chaeun.SentenceResultActivity"/>
 
 <!--        승훈-->
-        <activity android:name=".SubjectiveActivity"/>
-        <activity android:name=".SubjectiveQuizActivity"/>
-        <activity android:name=".SubjectiveResultActivity"/>
+        <activity android:name=".sheunghoon.SubjectiveActivity"/>
+        <activity android:name=".sheunghoon.SubjectiveQuizActivity"/>
+        <activity android:name=".sheunghoon.SubjectiveResultActivity"/>
     </application>
 
 </manifest>

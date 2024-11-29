@@ -8,14 +8,28 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <!-- ProgressBar 투명 스타일 -->
+    <!-- activity_quiz progressbar -->
     <style name="TransparentProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:progressTint">@android:color/transparent</item>
         <item name="android:indeterminateTint">@android:color/transparent</item>
     </style>
 
+<!--    activity_quiz button-->
     <style name="designButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+<!--    activity_quiz button-->
+    <style name="designTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="designTextViewResult" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">#000000</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
