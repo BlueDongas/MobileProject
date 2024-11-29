@@ -7,7 +7,6 @@ import android.os.CountDownTimer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -76,11 +75,6 @@ public class QuizTimer {
             countDownTimer.cancel();
         }
     }
-
-    public long getTimeRemaining() {
-        return this.timeRemaining;
-    }
-
 //    // 타이머 리셋
 //    public void reset() {
 //        pause();
