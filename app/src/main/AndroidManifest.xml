@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--        용진-->
         <activity android:name=".yongjin.ResultActivity"/>
         <activity android:name=".yongjin.QuizActivity"/>
 
@@ -36,6 +37,10 @@
         <activity android:name=".sheunghoon.SubjectiveActivity"/>
         <activity android:name=".sheunghoon.SubjectiveQuizActivity"/>
         <activity android:name=".sheunghoon.SubjectiveResultActivity"/>
+
+<!--        config-->
+        <activity android:name=".config.SignupActivity"/>
+
     </application>
 
 </manifest>
