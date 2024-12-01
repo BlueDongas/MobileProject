@@ -1,4 +1,6 @@
-package com.example.engquiz.yongjin;
+package com.example.engquiz;
+
+import com.example.engquiz.yongjin.Question;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
