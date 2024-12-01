@@ -75,6 +75,10 @@ public class QuizTimer {
             countDownTimer.cancel();
         }
     }
+
+    public long getTimeRemaining() {
+        return timeRemaining;
+    }
 //    // 타이머 리셋
 //    public void reset() {
 //        pause();

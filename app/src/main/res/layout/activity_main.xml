@@ -18,6 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/LVspinner"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/button_box1"/>
 
     <!-- LV 텍스트-->
     <TextView
@@ -39,9 +48,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_box1"
-        app:layout_constraintBottom_toTopOf="@id/go_chaeun_quiz"
+        app:layout_constraintBottom_toTopOf="@id/my_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/lv_text" />
+
+    <Button
+        android:id="@+id/my_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/designButton"
+        android:background="@drawable/button_box1"
+        app:layout_constraintBottom_toTopOf="@id/go_chaeun_quiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        android:text="나만의 단어장"
+        android:layout_marginBottom="16dp"/>
 
     <!-- 채은 퀴즈 버튼 -->
     <Button

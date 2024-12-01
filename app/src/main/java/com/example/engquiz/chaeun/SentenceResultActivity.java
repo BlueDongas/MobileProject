@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.engquiz.MainActivity;
 import com.example.engquiz.R;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class SentenceResultActivity extends AppCompatActivity {
         ltv.setAdapter(adapter);
 
         goMain.setOnClickListener(v -> {
-            Intent i = new Intent(SentenceResultActivity.this, SentenceActivity.class);
+            Intent i = new Intent(SentenceResultActivity.this, MainActivity.class);
             startActivity(i);
         });
     }

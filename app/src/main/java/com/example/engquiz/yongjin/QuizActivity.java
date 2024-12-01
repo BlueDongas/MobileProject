@@ -1,6 +1,7 @@
 package com.example.engquiz.yongjin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.engquiz.ApiService;
 import com.example.engquiz.R;
+import com.example.engquiz.RetrofitClient;
+import com.example.engquiz.config.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +52,22 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String token = prefs.getString("jwtToken", null);
+
+        if (token == null || token.isEmpty()) {
+            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(QuizActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        else{
+            Log.d("QuizActivity","JWT Token : "+token);
+        }
+
+        ApiService apiService = RetrofitClient.getClient(token).create(ApiService.class);
+
         //선택된 LV 받아오기
         Intent Preintent = getIntent();
         int LV = Preintent.getIntExtra("LV",-1);
@@ -74,14 +94,8 @@ public class QuizActivity extends AppCompatActivity {
         quizTimer = new QuizTimer(300000, timeText, progressBar, this, score);
         quizTimer.start();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://18.205.64.172:25000/") // Flask 서버 URL
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        QuizApi quizApi = retrofit.create(QuizApi.class);
-
-        fetchQuestions(quizApi,LV);
+        fetchQuestions(apiService,LV);
 
         // selection1~4 button 연결 동작 (공통)
         View.OnClickListener optionClickListener = view -> {
@@ -184,8 +198,8 @@ public class QuizActivity extends AppCompatActivity {
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
     // 문제를 영어로 제시하고 그 영어에 대한 문제에서 모르는 단어 같은 걸로 활용해서 다른 걸 만들어 볼까...?
 
-    private void fetchQuestions(QuizApi quizApi, int level) {
-        quizApi.getWords(level).enqueue(new Callback<List<Question>>() {
+    private void fetchQuestions(ApiService apiService, int level) {
+        apiService.getWords(level).enqueue(new Callback<List<Question>>() {
             @Override
             public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
                 if (response.isSuccessful() && response.body() != null) {

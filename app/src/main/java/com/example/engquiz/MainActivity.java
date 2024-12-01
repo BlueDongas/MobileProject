@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.engquiz.chaeun.SentenceActivity;
+import com.example.engquiz.config.LoginActivity;
 import com.example.engquiz.sheunghoon.SubjectiveActivity;
 import com.example.engquiz.yongjin.QuizActivity;
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Button goChaeun;
     private Button goSheunghoon;
     private Button goYongjin;
+    private Button logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -29,9 +32,20 @@ public class MainActivity extends AppCompatActivity {
         // main 화면 표시
         setContentView(R.layout.activity_main);
 
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String token = prefs.getString("jwtToken", null);
+
+        if (token == null) {
+            // 토큰이 없으면 로그인 화면으로 이동
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         goChaeun = findViewById(R.id.go_chaeun_quiz);
         goSheunghoon = findViewById(R.id.go_shuenghoon_quiz);
         goYongjin = findViewById(R.id.go_yongjin_quiz);
+        logoutBtn = findViewById(R.id.logout_button);
 
         Spinner LVspinner = findViewById(R.id.LVspinner);
         String[] LVs = {"LV 1","LV 2","LV 3"};
@@ -68,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, SubjectiveActivity.class);
                     intent.putExtra("LV",level);
                     startActivity(intent);
+                });
+
+                logoutBtn.setOnClickListener(v->{
+                    SharedPreferences preferences = getSharedPreferences("UserPrefs",MODE_PRIVATE);
+                    preferences.edit().clear().apply();
+
+                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 });
             }
 

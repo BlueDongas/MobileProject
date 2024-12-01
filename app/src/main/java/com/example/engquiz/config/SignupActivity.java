@@ -8,10 +8,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.engquiz.ApiService;
 import com.example.engquiz.MainActivity;
 import com.example.engquiz.R;
+import com.example.engquiz.RetrofitClient;
 
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -37,23 +43,46 @@ public class SignupActivity extends AppCompatActivity {
 
         signupButton.setOnClickListener(v -> {
 
-            // signupButton 클릭시 입력한 회원 정보를 기반으로 User 생성
-            // DB에 저장할 User data, 추후 필요시 DTO 생성하여 전달
-            user = new User(
-                    Math.abs(UUID.randomUUID().getMostSignificantBits()),
-                    editTextUserid.getText().toString(),
-                    editTextPassword.getText().toString(),
-                    editTextNickname.getText().toString()
-            );
+            String username = editTextUserid.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
+            String nickname = editTextNickname.getText().toString().trim();
 
+            if (username.isEmpty() || password.isEmpty() || nickname.isEmpty()) {
+                Toast.makeText(SignupActivity.this, "입력에 빈 값이 존재합니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            processSignup(username,password,nickname);
             // use @NonNull, 예외 처리 x (if editText == null)
 
-            Toast.makeText(SignupActivity.this, "회원가입 성공", Toast.LENGTH_SHORT)
-                    .show();
+        });
+    }
+    private void processSignup(String username, String password, String nickname) {
+        ApiService apiService = RetrofitClient.getClient(null).create(ApiService.class);
+        SignupRequest signupRequest = new SignupRequest(username, password, nickname);
 
-            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-            startActivity(intent);
+        apiService.signup(signupRequest).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // 회원가입 성공
+                    Toast.makeText(SignupActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
 
+                    // 로그인 화면으로 이동
+                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish(); // SignupActivity 종료
+                } else {
+                    // 회원가입 실패 처리
+                    Toast.makeText(SignupActivity.this, "회원가입 실패: 이미 존재하는 사용자입니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // 네트워크 오류 처리
+                Toast.makeText(SignupActivity.this, "네트워크 오류 발생: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
