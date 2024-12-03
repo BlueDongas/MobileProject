@@ -66,7 +66,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void processSignup(String username, String password, String nickname) {
-        ApiService apiService = RetrofitClient.getClient(null).create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient(null,this).create(ApiService.class);
         SignupRequest signupRequest = new SignupRequest(username, password, nickname);
 
         apiService.signup(signupRequest).enqueue(new Callback<Void>() {

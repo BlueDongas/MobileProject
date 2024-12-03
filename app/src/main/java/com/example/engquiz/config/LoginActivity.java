@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void processLogin(String userId, String password) {
-        ApiService apiService = RetrofitClient.getClient(null).create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient(null,this  ).create(ApiService.class);
         LoginRequest loginRequest = new LoginRequest(userId, password);
 
         apiService.login(loginRequest).enqueue(new Callback<LoginResponse>() {

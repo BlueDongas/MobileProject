@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -69,7 +70,7 @@ public class QuizActivity extends AppCompatActivity {
             Log.d("QuizActivity","JWT Token : "+token);
         }
 
-        ApiService apiService = RetrofitClient.getClient(token).create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient(token,this).create(ApiService.class);
 
         //선택된 LV 받아오기
         Intent Preintent = getIntent();
@@ -250,6 +251,14 @@ public class QuizActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE) {
+            finish(); // ESC 키 입력 시 Activity 종료
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +57,7 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
             Log.d("QuizActivity","JWT Token : "+token);
         }
 
-        ApiService apiService = RetrofitClient.getClient(token).create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient(token,this ).create(ApiService.class);
         Intent Preintent = getIntent();
         int LV = Preintent.getIntExtra("LV",-1);
 
@@ -78,6 +79,14 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE) {
+            finish(); // ESC 키 입력 시 Activity 종료
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     private void fetchQuestions(ApiService apiService, int level) {
         apiService.getWords(level).enqueue(new Callback<List<Question>>() {
             @Override
@@ -87,7 +96,7 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
 
                     textViewQuestion.setText(questionList.get(currentQuestionIndex).getKoreanWord());// 첫번째 질문 설정
                 } else {
-                    Toast.makeText(SubjectiveQuizActivity.this, "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubjectiveQuizActivity.this, "세션이 만료되었습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
