@@ -14,7 +14,7 @@ public class QuizTimer {
 
     // ProgressBar 시간 지날 때 마다 감소
     private CountDownTimer countDownTimer;
-    // 총 시간 30초
+    // 총 시간
     private final long totalTime;
     // 남은 시간
     private long timeRemaining;
@@ -51,7 +51,7 @@ public class QuizTimer {
 //                progressBar.setProgress(secondsRemaining);
 
                 // Timer 텍스트 업데이트
-                timerText.setText(secondsRemaining + "초");
+                timerText.setText("남은시간" + secondsRemaining + "초");
             }
 
             @Override
@@ -76,15 +76,5 @@ public class QuizTimer {
         }
     }
 
-    public long getTimeRemaining() {
-        return timeRemaining;
-    }
-//    // 타이머 리셋
-//    public void reset() {
-//        pause();
-//        // totalTime에서 시작하니까 29s에서 시작함
-//        timeRemaining = totalTime + 1000;
-//        timerText.setText((int) (totalTime / 1000) + "초");
-//        progressBar.setProgress(progressBar.getMax());
-//    }
+
 }
