@@ -98,7 +98,7 @@ public class QuizActivity extends AppCompatActivity {
 
         // 수정 -> 전체 QuizTimer로 변경(5분 제한 시간)
         // quizTimer에서 this는 QuizActivity를 말하며 Context를 지칭하기도 함
-        quizTimer = new QuizTimer(300000, timeText,this, score);
+        quizTimer = new QuizTimer(30000, timeText,this, score);
         quizTimer.start();
 
 
@@ -189,7 +189,7 @@ public class QuizActivity extends AppCompatActivity {
                 currentQuestionIndex--;
                 quizDisplay();
 
-                // 진행률 업데이트
+                // **진행률 업데이트**
                 if (progressBar.getProgress() > 0) {
                     progressBar.incrementProgressBy(-1);
                     processText.setText(String.format("문제 %d/%d", progressBar.getProgress(), questionList.size()));
