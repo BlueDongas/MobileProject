@@ -48,7 +48,7 @@ public class SentenceActivity extends AppCompatActivity {
         int totalQuestions = Qlist.length;
         progressBar.setMax(totalQuestions);
         progressBar.setProgress(1);
-        TxtProgress.setText("1/" + totalQuestions);
+        TxtProgress.setText("1/" + totalQuestions); // 남은 문제 로직?
         Qtxt.setText(Qlist[0]);
 
         final int[] currentIndex = {0};

@@ -12,6 +12,14 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progress_bar"-->
+<!--            style="@style/TransparentProgressBar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:padding="8dp"/>-->
+
         <ProgressBar
             android:id="@+id/progress_bar"
             style="@style/TransparentProgressBar"
@@ -25,14 +33,24 @@
             />
 
         <TextView
-            android:id="@+id/progress_text"
+            android:id="@+id/process_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:text="여기에 진행률"
+            style="@style/designTextView" />
+
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="30dp"
+            android:text="여기에 남은시간"
             style="@style/designTextView"
-           />
-
-
+            />
     </RelativeLayout>
 
     <TextView
@@ -96,10 +114,9 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
-                android:background="@drawable/button_box1"
                 android:text="선택지 1"
                 style="@style/TransparentButton"
-                />
+                android:background="@drawable/button_box1"/>
             <Button
                 android:id="@+id/selection2"
                 android:layout_width="0dp"
@@ -107,9 +124,9 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:layout_margin="8dp"
-                android:background="@drawable/button_box1"
                 android:text="선택지 2"
-                style="@style/TransparentButton" />
+                style="@style/TransparentButton"
+                android:background="@drawable/button_box1"/>
 
             <Button
                 android:id="@+id/selection3"

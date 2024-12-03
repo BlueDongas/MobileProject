@@ -20,23 +20,23 @@ public class QuizTimer {
     private long timeRemaining;
 
     private final TextView timerText;
-    private final ProgressBar progressBar;
+//    private final ProgressBar progressBar;
 
     private int score;
 
     private Context context;
 
-    public QuizTimer(long totalTime, TextView timerText, ProgressBar progressBar, Context context, int score) {
+    public QuizTimer(long totalTime, TextView timerText, Context context, int score) {
         this.totalTime = totalTime;
         this.timeRemaining = totalTime;
         this.timerText = timerText;
-        this.progressBar = progressBar;
+//        this.progressBar = progressBar;
         this.context = context;
         this.score = score;
 
-        // progressBar 초기 설정
-        progressBar.setMax((int) totalTime / 1000);
-        progressBar.setProgress(progressBar.getMax());
+//        // progressBar 초기 설정
+//        progressBar.setMax((int) totalTime / 1000);
+//        progressBar.setProgress(progressBar.getMax());
     }
 
     // 타이머 시작
@@ -48,7 +48,7 @@ public class QuizTimer {
 
                 // ProgressBar 업데이트
                 int secondsRemaining = (int) (millisUntilFinished / 1000);
-                progressBar.setProgress(secondsRemaining);
+//                progressBar.setProgress(secondsRemaining);
 
                 // Timer 텍스트 업데이트
                 timerText.setText(secondsRemaining + "초");
@@ -57,7 +57,7 @@ public class QuizTimer {
             @Override
             public void onFinish() {
                 timerText.setText("시간 초과!");
-                progressBar.setProgress(0);
+//                progressBar.setProgress(0);
 
                 // QuizActivity로부터 context를 받아와 ResultActivity로 이동
                 Intent intent = new Intent(context, ResultActivity.class);

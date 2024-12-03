@@ -21,13 +21,15 @@ import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private User user;
+    // 임시 데이터
+//    private User user;
 
     EditText editTextUserid;
     EditText editTextPassword;
     EditText editTextNickname;
 
     Button signupButton;
+    Button goMainButton;
 
     @Override
     public void onCreate(Bundle bundle){
@@ -40,6 +42,7 @@ public class SignupActivity extends AppCompatActivity {
         editTextNickname = findViewById(R.id.signup_nickname);
 
         signupButton = findViewById(R.id.signup_button);
+        goMainButton = findViewById(R.id.go_main_button);
 
         signupButton.setOnClickListener(v -> {
 
@@ -54,9 +57,14 @@ public class SignupActivity extends AppCompatActivity {
 
             processSignup(username,password,nickname);
             // use @NonNull, 예외 처리 x (if editText == null)
+        });
 
+        goMainButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
+
     private void processSignup(String username, String password, String nickname) {
         ApiService apiService = RetrofitClient.getClient(null).create(ApiService.class);
         SignupRequest signupRequest = new SignupRequest(username, password, nickname);
