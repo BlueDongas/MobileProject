@@ -115,6 +115,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="포기하기" />
+            android:text="완료하기" />
     </LinearLayout>
 </LinearLayout>

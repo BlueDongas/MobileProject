@@ -55,6 +55,12 @@ public class SentenceResultActivity extends AppCompatActivity {
                 int endIndex = itemText.length();
                 spannableString.setSpan(new ForegroundColorSpan(Color.RED), startIndex, endIndex, 0);
             }
+            else{
+                int startIndex = itemText.indexOf("Correct Answer: ") + "Correct Answer: ".length();
+                int endIndex = itemText.length();
+                int darkGreen = Color.rgb(0, 128, 0); // 어두운 초록색
+                spannableString.setSpan(new ForegroundColorSpan(darkGreen), startIndex, endIndex, 0);
+            }
 
             strArray.add(spannableString);
         }
