@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:text="로그아웃"
         android:layout_marginTop="16dp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/LVspinner"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/button_box1"/>

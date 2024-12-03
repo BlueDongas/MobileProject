@@ -22,8 +22,11 @@ public class QuizTimer {
     private final TextView timerText;
 //    private final ProgressBar progressBar;
 
+    private TimerCallback callback;
+
     private int score;
 
+    // context에 의존하여 데이터를 전달하고 싶지 않음
     private Context context;
 
     public QuizTimer(long totalTime, TextView timerText, Context context, int score) {
@@ -60,10 +63,13 @@ public class QuizTimer {
 //                progressBar.setProgress(0);
 
                 // QuizActivity로부터 context를 받아와 ResultActivity로 이동
+                // 여기서 context는 QuizActivity
+                // QuizTimer는 Activity가 아니고 QuizActivity에 크게 의존하지만 Timer는 QuizActivity에 의존하는게 맞는 거 같음
                 Intent intent = new Intent(context, ResultActivity.class);
-                intent.putExtra("score", score); // 점수를 전달
+                // "score" 그대로 받아오기(문자열 틀리면 못 받아 오더라..)
+                intent.putExtra("score", score);
                 context.startActivity(intent);
-                ((Activity) context).finish(); // 현재 액티비티 종료
+                ((Activity) context).finish();
             }
         };
         countDownTimer.start();
@@ -76,5 +82,7 @@ public class QuizTimer {
         }
     }
 
+    public interface TimerCallback{
 
+    }
 }

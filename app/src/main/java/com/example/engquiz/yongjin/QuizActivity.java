@@ -97,6 +97,7 @@ public class QuizActivity extends AppCompatActivity {
 //        progressBar = findViewById(R.id.progress_bar);
 
         // 수정 -> 전체 QuizTimer로 변경(5분 제한 시간)
+        // quizTimer에서 this는 QuizActivity를 말하며 Context를 지칭하기도 함
         quizTimer = new QuizTimer(3000, timeText,this, score);
         quizTimer.start();
 
@@ -140,7 +141,6 @@ public class QuizActivity extends AppCompatActivity {
             }
 
             disableAllButtons();
-
         });
 
         selection1.setOnClickListener(optionClickListener);

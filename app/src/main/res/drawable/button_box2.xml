@@ -2,14 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="#EE4E4E" /> <!-- 클릭 시 배경색 -->
+            <solid android:color="#D6EFD8" /> <!-- 클릭 시 배경색 -->
             <stroke android:width="2dp" android:color="#000000" /> <!-- 외곽선 -->
             <corners android:radius="20dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="@android:color/transparent" /> <!-- 기본 배경색 -->
+            <solid android:color="@android:color/transparent" />
             <stroke android:width="2dp" android:color="#000000" /> <!-- 외곽선 -->
             <corners android:radius="20dp" />
         </shape>
