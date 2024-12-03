@@ -54,7 +54,7 @@ public class QuizTimer {
 //                progressBar.setProgress(secondsRemaining);
 
                 // Timer 텍스트 업데이트
-                timerText.setText("남은시간" + secondsRemaining + "초");
+                timerText.setText("남은시간: " + secondsRemaining + "초");
             }
 
             @Override

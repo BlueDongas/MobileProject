@@ -44,7 +44,7 @@
             android:id="@+id/main_menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="재시작"
+            android:text="홈화면"
             android:layout_marginStart="8dp"
             android:textStyle="bold"
             android:textSize="18sp"

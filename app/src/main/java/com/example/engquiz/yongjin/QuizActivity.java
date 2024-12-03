@@ -271,7 +271,6 @@ public class QuizActivity extends AppCompatActivity {
                     quizDisplay(); // 첫 번째 질문 표시
                 } else {
                     Toast.makeText(QuizActivity.this, "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             }
 
@@ -279,9 +278,9 @@ public class QuizActivity extends AppCompatActivity {
             public void onFailure(Call<List<Question>> call, Throwable t) {
                 Toast.makeText(QuizActivity.this, "API 호출 실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("QuizActivity", "API Error", t);
-                finish();
             }
         });
+
     }
     // 정답, 오답, 점수 추가 기능 만들어야함
 
