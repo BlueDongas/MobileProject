@@ -18,6 +18,9 @@ public class SubjectiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjective_main);
 
+        Intent Preintent = getIntent();
+        int LV = Preintent.getIntExtra("LV",-1);
+
         // 뷰 초기화
         startQuiz = findViewById(R.id.startQuiz);
 
@@ -26,6 +29,7 @@ public class SubjectiveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SubjectiveActivity.this, SubjectiveQuizActivity.class);
+                intent.putExtra("LV",LV);
                 startActivity(intent);
             }
         });
