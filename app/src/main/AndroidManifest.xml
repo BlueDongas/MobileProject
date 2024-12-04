@@ -28,6 +28,7 @@
 <!--        용진-->
         <activity android:name=".yongjin.ResultActivity"/>
         <activity android:name=".yongjin.QuizActivity"/>
+        <activity android:name=".yongjin.MyPadActivity"/>
 
 <!--        채은-->
         <activity android:name=".chaeun.SentenceActivity"/>

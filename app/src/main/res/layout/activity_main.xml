@@ -49,12 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_box1"
-        app:layout_constraintBottom_toTopOf="@id/my_word"
+        app:layout_constraintBottom_toTopOf="@id/go_my_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/lv_text" />
 
+<!--    나만의 단어장 가기 -->
     <Button
-        android:id="@+id/my_word"
+        android:id="@+id/go_my_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/designButton"

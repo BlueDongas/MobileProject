@@ -16,6 +16,7 @@ import com.example.engquiz.chaeun.SentenceActivity;
 import com.example.engquiz.config.LoginActivity;
 import com.example.engquiz.sheunghoon.SubjectiveActivity;
 import com.example.engquiz.yongjin.QuizActivity;
+import com.example.engquiz.yongjin.MyPadActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button goChaeun;
     private Button goSheunghoon;
     private Button goYongjin;
+    private Button goMypad;
     private Button logoutBtn;
 
     @Override
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         goChaeun = findViewById(R.id.go_chaeun_quiz);
         goSheunghoon = findViewById(R.id.go_shuenghoon_quiz);
         goYongjin = findViewById(R.id.go_yongjin_quiz);
+        goMypad = findViewById(R.id.go_my_word);
         logoutBtn = findViewById(R.id.logout_button);
 
         Spinner LVspinner = findViewById(R.id.LVspinner);
@@ -84,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 });
 
+                goMypad.setOnClickListener(v -> {
+                    // Intent를 사용하여 화면 전환(data 전달)
+                    Intent intent = new Intent(MainActivity.this, MyPadActivity.class);
+                    startActivity(intent);
+                });
+
                 logoutBtn.setOnClickListener(v->{
                     SharedPreferences preferences = getSharedPreferences("UserPrefs",MODE_PRIVATE);
                     preferences.edit().clear().apply();
@@ -93,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 });
             }
+
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

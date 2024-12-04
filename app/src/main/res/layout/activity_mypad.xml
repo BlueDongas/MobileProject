@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="center|top">
+
+    <!-- 제목 TextView -->
+    <TextView
+        android:id="@+id/mypad_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="나만의 단어장"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_margin="24sp"
+        style="@style/designTextView" />
+
+    <GridView
+        android:layout_weight="1"
+        android:id="@+id/mypad_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:numColumns="1"
+        android:stretchMode="columnWidth"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- 단어 추가 버튼 -->
+        <Button
+            android:id="@+id/mypad_word_add"
+            style="@style/TransparentButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="단어 추가"
+            />
+
+<!--        메인 이동 버튼-->
+        <Button
+            android:id="@+id/go_main_button"
+            style="@style/TransparentButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="메인으로"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
