@@ -10,6 +10,15 @@
         android:layout_gravity="center"
         android:textSize="50dp">
     </TextView>
+    <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:padding="16dp"
+            android:text="당신의 점수는 빵점입니다"
+            android:layout_gravity="center">
+    /TextView>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
