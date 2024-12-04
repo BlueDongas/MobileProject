@@ -17,8 +17,7 @@
             android:textSize="24sp"
             android:padding="16dp"
             android:text="당신의 점수는 빵점입니다"
-            android:layout_gravity="center">
-    /TextView>
+            android:layout_gravity="center"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
