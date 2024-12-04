@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.engquiz.MainActivity;
 import com.example.engquiz.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SentenceResultActivity extends AppCompatActivity {
@@ -27,31 +28,21 @@ public class SentenceResultActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "시간이 초과되었습니다!", Toast.LENGTH_SHORT).show();
 
         // 정답 리스트
-        String[] AnswerList = {
-                "went",     // She ___ to the store yesterday.
-                "sitting",  // The cat is ___ on the mat.
-                "read",     // I love to ___ books in my free time.
-                "goes",     // He always ___ to work early in the morning.
-                "host",     // They decided to ___ the party at their house.
-                "play",     // The weather is perfect for ___ outside today.
-                "lend",     // Can you ___ me your phone for a minute?
-                "make",     // We need to ___ a decision quickly.
-                "learn",    // She wants to ___ how to play the guitar.
-                "painted"   // He ___ a beautiful painting for his art class.
-        };
+
 
         // Intent 데이터 수신
         Intent intent = getIntent();
-        String[] Qlist = intent.getStringArrayExtra("Qlist");
+        ArrayList<String> AnswerList = getIntent().getStringArrayListExtra("answer");
+        ArrayList<String> Qlist = getIntent().getStringArrayListExtra("Qlist");
         String[] userAnswers = intent.getStringArrayExtra("userAnswers");
 
         Button goMain = findViewById(R.id.go_main);
 
         // 결과 리스트 생성
         ArrayList<SpannableString> strArray = new ArrayList<>();
-        for (int i = 0; i < AnswerList.length; i++) {
-            String question = Qlist[i];
-            String correctAnswer = AnswerList[i];
+        for (int i = 0; i < AnswerList.size(); i++) {
+            String question = Qlist.get(i);
+            String correctAnswer = AnswerList.get(i);
             String userAnswer = userAnswers[i];
 
             String itemText = question + "\nYour Answer: " + userAnswer + "\nCorrect Answer: " + correctAnswer;
@@ -63,6 +54,12 @@ public class SentenceResultActivity extends AppCompatActivity {
                 int startIndex = itemText.indexOf("Correct Answer: ") + "Correct Answer: ".length();
                 int endIndex = itemText.length();
                 spannableString.setSpan(new ForegroundColorSpan(Color.RED), startIndex, endIndex, 0);
+            }
+            else{
+                int startIndex = itemText.indexOf("Correct Answer: ") + "Correct Answer: ".length();
+                int endIndex = itemText.length();
+                int darkGreen = Color.rgb(0, 128, 0); // 어두운 초록색
+                spannableString.setSpan(new ForegroundColorSpan(darkGreen), startIndex, endIndex, 0);
             }
 
             strArray.add(spannableString);

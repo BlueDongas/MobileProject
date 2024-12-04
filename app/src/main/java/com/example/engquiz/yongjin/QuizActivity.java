@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -21,7 +22,10 @@ import com.example.engquiz.config.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,7 +70,7 @@ public class QuizActivity extends AppCompatActivity {
             Log.d("QuizActivity","JWT Token : "+token);
         }
 
-        ApiService apiService = RetrofitClient.getClient(token).create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient(token,this).create(ApiService.class);
 
         //선택된 LV 받아오기
         Intent Preintent = getIntent();
@@ -159,8 +163,8 @@ public class QuizActivity extends AppCompatActivity {
 //            제한 시간을 전체 5분 설정
 //            quizTimer.reset();
 //            quizTimer.start();
-            currentQuestionIndex++;
 
+            currentQuestionIndex++;
             if (currentQuestionIndex < questionList.size()) {
                 // 다음 quiz 이동
                 quizDisplay();
@@ -178,8 +182,10 @@ public class QuizActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
                 intent.putExtra("score", score);
                 startActivity(intent);
+                quizTimer.pause();
                 finish();
 //              endQuiz();
+                return;
             }
         });
 
@@ -246,6 +252,14 @@ public class QuizActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE) {
+            finish(); // ESC 키 입력 시 Activity 종료
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     // 임시로 만든 question, selection, answer(일단 명사만 해봄)
     // 문제를 영어로 제시하고 그 영어에 대한 문제에서 모르는 단어 같은 걸로 활용해서 다른 걸 만들어 볼까...?
@@ -288,8 +302,16 @@ public class QuizActivity extends AppCompatActivity {
         List<String> options = new ArrayList<>(4);
         options.add(currentQuestion.getEnglishWord()); //정답 옵션
 
-        for (int i=0;i<3;i++){
-            options.add("오답"+(i+1));
+        Set<Integer> usedIndices = new HashSet<>();
+        Random random = new Random();
+        usedIndices.add(currentQuestionIndex);
+
+        while (options.size() < 4) {
+            int randomIndex = random.nextInt(10); // 0부터 9까지 랜덤 숫자 생성
+            if (!usedIndices.contains(randomIndex)) {
+                options.add(questionList.get(randomIndex).getEnglishWord());
+                usedIndices.add(randomIndex); // 중복 방지 위해 추가
+            }
         }
         // 정답지 shuffle인데 checkedAnswer를 눌렀을 때는 shuffle하지 않도록 할 수 있을 지도?
         Collections.shuffle(options);
