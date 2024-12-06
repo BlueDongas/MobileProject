@@ -54,6 +54,13 @@
             android:layout_margin="10dp"
             android:text="메인으로"
             />
+        <Button
+            android:id="@+id/go_shuenghoon_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TransparentButton2"
+            android:text="퀴즈"
+            android:layout_margin="10dp"/>
 
     </LinearLayout>
 

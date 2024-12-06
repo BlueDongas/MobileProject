@@ -37,5 +37,8 @@ public interface ApiService {
     @PUT("/my_word")
     Call<Void> updateMyWord(@Body WordUpdateRequest request);
 
+    @GET("/load_my_word")
+    Call<List<Question>> loadMyWord();
+
 
 }

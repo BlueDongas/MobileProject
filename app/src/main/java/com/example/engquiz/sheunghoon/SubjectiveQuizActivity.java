@@ -68,8 +68,10 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
         }
 
         ApiService apiService = RetrofitClient.getClient(token,this ).create(ApiService.class);
+
         Intent Preintent = getIntent();
         int LV = Preintent.getIntExtra("LV",-1);
+        String quiz_flag = Preintent.getStringExtra("Quizflag");
 
         // 뷰 초기화
         textViewQuestion = findViewById(R.id.textViewQuestion);
@@ -82,7 +84,12 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
         // 타이머 시작
         startTimer();
 
-        fetchQuestions(apiService,LV);
+        if ("normal".equals(quiz_flag)){
+            fetch_normal_Questions(apiService,LV); // 기본 단어 퀴즈
+        } else if ("myquiz".equals(quiz_flag)) {
+            fetch_my_Questions(apiService); // 나만의 단어장 퀴즈
+        }
+
         // 첫 번째 질문 설정
 
         // 제출 버튼 클릭 시 정답 확인 및 다음 문제로 이동
@@ -111,7 +118,7 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    private void fetchQuestions(ApiService apiService, int level) {
+    private void fetch_normal_Questions(ApiService apiService, int level) {
         apiService.getWords(level).enqueue(new Callback<List<Question>>() {
             @Override
             public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
@@ -120,6 +127,28 @@ public class SubjectiveQuizActivity extends AppCompatActivity {
 
                     textViewQuestion.setText(questionList.get(currentQuestionIndex).getKoreanWord());// 첫번째 질문 설정
                 } else {
+                    Toast.makeText(SubjectiveQuizActivity.this, "세션이 만료되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable t) {
+                Toast.makeText(SubjectiveQuizActivity.this, "API 호출 실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("QuizActivity", "API Error", t);
+                finish();
+            }
+        });
+    }
+
+    private void fetch_my_Questions(ApiService apiService){
+        apiService.loadMyWord().enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    questionList= response.body();
+
+                    textViewQuestion.setText(questionList.get(currentQuestionIndex).getKoreanWord());
+                }else{
                     Toast.makeText(SubjectiveQuizActivity.this, "세션이 만료되었습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
