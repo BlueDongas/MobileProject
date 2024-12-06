@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:layout_margin="10dp"
     >
 
     <TextView
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         style="@style/designButton"
         android:background="@drawable/button_signup_and_login"
+        android:layout_marginBottom="10dp"
         android:hint="id"
        />
 

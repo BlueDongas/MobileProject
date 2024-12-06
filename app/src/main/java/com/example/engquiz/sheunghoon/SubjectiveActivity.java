@@ -30,6 +30,7 @@ public class SubjectiveActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SubjectiveActivity.this, SubjectiveQuizActivity.class);
                 intent.putExtra("LV",LV);
+                intent.putExtra("Quizflag","normal");
                 startActivity(intent);
             }
         });

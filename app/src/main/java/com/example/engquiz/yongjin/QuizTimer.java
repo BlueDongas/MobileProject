@@ -62,6 +62,7 @@ public class QuizTimer {
                 timerText.setText("시간 초과!");
 //                progressBar.setProgress(0);
 
+
                 // QuizActivity로부터 context를 받아와 ResultActivity로 이동
                 // 여기서 context는 QuizActivity
                 // QuizTimer는 Activity가 아니고 QuizActivity에 크게 의존하지만 Timer는 QuizActivity에 의존하는게 맞는 거 같음

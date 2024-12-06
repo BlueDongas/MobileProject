@@ -109,7 +109,7 @@ public class QuizActivity extends AppCompatActivity {
 
         // 수정 -> 전체 QuizTimer로 변경(5분 제한 시간)
         // quizTimer에서 this는 QuizActivity를 말하며 Context를 지칭하기도 함
-        quizTimer = new QuizTimer(30000, timeText,this, score);
+        quizTimer = new QuizTimer(90000, timeText,this, score);
         quizTimer.start();
 
 

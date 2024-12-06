@@ -5,7 +5,29 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 단어 질문 텍스트 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/10"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:id="@+id/Txtprogress"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textViewQuestion"
         android:layout_width="wrap_content"
@@ -15,7 +37,6 @@
         android:layout_gravity="center_horizontal"
         android:padding="16dp" />
 
-    <!-- 사용자가 정답을 입력할 수 있는 필드 -->
     <EditText
         android:id="@+id/editTextAnswer"
         android:layout_width="match_parent"
@@ -24,7 +45,16 @@
         android:inputType="text"
         android:padding="16dp" />
 
-    <!-- 정답 제출 버튼 -->
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="남은 시간: 00:30"
+        android:textSize="16sp" />
+
+
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"
