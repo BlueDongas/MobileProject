@@ -174,35 +174,39 @@
         >
 
         <!-- 이전 버튼 -->
-        <Button
+        <ImageButton
             android:id="@+id/prev_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_box2"
-            android:text="이전"
-            style="@style/designButton" />
+            android:src="@drawable/caret_back_outline"
+            android:contentDescription="이전 문제로 이동"
+             />
 
         <!-- 중단 버튼 -->
-        <Button
+        <ImageButton
             android:id="@+id/stop_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_marginRight="20dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_box2"
-            android:text="중단"
-            style="@style/designButton" />
+            android:src="@drawable/pause_outline"
+            android:contentDescription="중단하기"
+             />
 
         <!-- 다음 버튼 -->
-        <Button
+        <ImageButton
             android:id="@+id/next_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_box2"
-            android:text="다음"
-            style="@style/designButton"/>
+            android:src="@drawable/caret_forward_outline"
+            android:contentDescription="다음 문제로 이동"
+            />
     </LinearLayout>
 </LinearLayout>

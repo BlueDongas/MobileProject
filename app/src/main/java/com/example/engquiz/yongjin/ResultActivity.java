@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class ResultActivity extends AppCompatActivity {
         }
 
         TextView scoreText = findViewById(R.id.score_text);
-        Button goMain = findViewById(R.id.go_main);
+        ImageButton goMain = findViewById(R.id.go_main);
 
         // 점수 받아오기
         int score = getIntent().getIntExtra("score", 0);

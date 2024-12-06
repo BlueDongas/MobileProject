@@ -24,4 +24,66 @@
         android:gravity="center"
         android:inputType="text"
         />
+
+
+<!--&lt;!&ndash;    단어 추가 버튼&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/add_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="추가"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="18sp"-->
+<!--        android:background="@drawable/button_box1"-->
+<!--        android:textColor="#000000" />-->
+
+<!--&lt;!&ndash;    취소 버튼&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/cancel_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="취소"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="18sp"-->
+<!--        android:background="@drawable/button_box1"-->
+<!--        android:textColor="#000000" />-->
+
+<!--&lt;!&ndash;    메인메뉴 이동 버튼&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/main_menu_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="메인으로"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="18sp"-->
+<!--        android:background="@drawable/button_box1"-->
+<!--        android:textColor="#000000" />-->
+
+
+<!--&lt;!&ndash;    단어 수정 버튼&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/update_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="수정"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="18sp"-->
+<!--        android:background="@drawable/button_box1"-->
+<!--        android:textColor="#000000" />-->
+
+<!--&lt;!&ndash;    삭제 버튼&ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/delete_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="삭제"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="18sp"-->
+<!--        android:background="@drawable/button_box1"-->
+<!--        android:textColor="#000000" />-->
 </LinearLayout>

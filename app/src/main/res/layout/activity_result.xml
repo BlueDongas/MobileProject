@@ -14,11 +14,14 @@
         android:text=" 결과 표시창 "
         style="@style/designTextViewResult"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/go_main"
-        style="@style/TransparentButton"
-        android:layout_width="200dp"
+        style="@style/TransparentButton2"
+        android:layout_margin="20sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_box1"
-        android:text="메인 화면으로 이동" />
+        android:src="@drawable/home_outline"
+        android:contentDescription="메인 화면으로 이동"
+         />
 </LinearLayout>

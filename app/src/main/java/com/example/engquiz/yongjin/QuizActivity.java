@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,14 +38,20 @@ public class QuizActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private QuizTimer quizTimer;
 
-    private TextView questionText, timeText, processText;
-    private Button selection1, selection2, selection3, selection4, nextButton, prevButton, stopButton, checkAnswerButton;
+    private TextView questionText;
+    private TextView processText;
+    private Button selection1;
+    private Button selection2;
+    private Button selection3;
+    private Button selection4;
+    private ImageButton prevButton;
+    private Button checkAnswerButton;
 
     private List<Question> questionList = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int score = 0;
 
-    private boolean isPaused = false;
+//    private boolean isPaused = false;
 
     // 선택한 답변과 고른 button
     private String selectedAnswer;
@@ -84,9 +91,9 @@ public class QuizActivity extends AppCompatActivity {
         selection3 = findViewById(R.id.selection3);
         selection4 = findViewById(R.id.selection4);
         // 다음, 이전, 중단, 정답 확인 button
-        nextButton = findViewById(R.id.next_button);
+        ImageButton nextButton = findViewById(R.id.next_button);
         prevButton = findViewById(R.id.prev_button);
-        stopButton = findViewById(R.id.stop_button);
+        ImageButton stopButton = findViewById(R.id.stop_button);
         checkAnswerButton = findViewById(R.id.check_answer_button);
 
         progressBar = findViewById(R.id.progress_bar);
@@ -95,7 +102,7 @@ public class QuizActivity extends AppCompatActivity {
 //        progressBar.setProgress(1);
 
         // 남은 시간
-        timeText = findViewById(R.id.timer_text);
+        TextView timeText = findViewById(R.id.timer_text);
         processText = findViewById(R.id.process_text);
 
 //        progressBar = findViewById(R.id.progress_bar);

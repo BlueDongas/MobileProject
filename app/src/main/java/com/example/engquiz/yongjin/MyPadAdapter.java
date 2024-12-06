@@ -58,7 +58,7 @@ public class MyPadAdapter extends BaseAdapter {
 
         // 순번을 추가하여 텍스트 설정
         wordText.setText((position + 1) + ". 단어: " + word);
-        meaningText.setText((position+1) + ".  뜻  : " + meaning);
+        meaningText.setText((position+1) + ".   뜻  : " + meaning);
 
         return convertView;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,9 +26,6 @@ public class MyPadActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPadPrefs";
     private static final String WORD_LIST_KEY = "WordList";
 
-    private GridView wordGridView;
-    private Button addWordButton;
-    private Button goMainButton;
     private MyPadAdapter adapter;
     private List<String> wordList;
 
@@ -37,12 +35,13 @@ public class MyPadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mypad);
 
         // 단어 리스트 초기화
+        // 이거 때문에 계속 저장이 안되는 건가
         wordList = new ArrayList<>();
 
-        wordGridView = findViewById(R.id.mypad_grid_view);
+        GridView wordGridView = findViewById(R.id.mypad_grid_view);
 
-        addWordButton = findViewById(R.id.mypad_word_add);
-        goMainButton = findViewById(R.id.go_main_button);
+        ImageButton addWordButton = findViewById(R.id.mypad_word_add);
+        ImageButton goMainButton = findViewById(R.id.go_main_button);
 
         adapter = new MyPadAdapter(this, wordList);
         wordGridView.setAdapter(adapter);

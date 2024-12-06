@@ -36,23 +36,25 @@
         android:gravity="center">
 
         <!-- 단어 추가 버튼 -->
-        <Button
+        <ImageButton
             android:id="@+id/mypad_word_add"
             style="@style/TransparentButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="단어 추가"
+            android:src="@drawable/add_outline"
+            android:contentDescription="단어 추가"
             />
 
 <!--        메인 이동 버튼-->
-        <Button
+        <ImageButton
             android:id="@+id/go_main_button"
             style="@style/TransparentButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="메인으로"
+            android:src="@drawable/home_outline_mypad"
+            android:contentDescription="메인으로 이동"
             />
 
     </LinearLayout>
