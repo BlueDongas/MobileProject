@@ -4,21 +4,31 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.engquiz.ApiService;
 import com.example.engquiz.MainActivity;
 import com.example.engquiz.R;
+import com.example.engquiz.RetrofitClient;
+import com.example.engquiz.WordItem;
+import com.example.engquiz.WordUpdateRequest;
+import com.example.engquiz.config.LoginActivity;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyPadActivity extends AppCompatActivity {
 
@@ -36,6 +46,21 @@ public class MyPadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypad);
 
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String token = prefs.getString("jwtToken", null);
+
+        if (token == null || token.isEmpty()) {
+            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MyPadActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        else{
+            Log.d("QuizActivity","JWT Token : "+token);
+        }
+        ApiService apiService = RetrofitClient.getClient(token,this).create(ApiService.class);
+
         // 단어 리스트 초기화
         wordList = new ArrayList<>();
 
@@ -47,7 +72,7 @@ public class MyPadActivity extends AppCompatActivity {
         adapter = new MyPadAdapter(this, wordList);
         wordGridView.setAdapter(adapter);
 
-        addWordButton.setOnClickListener(v -> addWordDialog());
+        addWordButton.setOnClickListener(v -> addWordDialog(apiService));
 
         goMainButton.setOnClickListener(v ->  {
             Intent i = new Intent(MyPadActivity.this, MainActivity.class);
@@ -60,30 +85,22 @@ public class MyPadActivity extends AppCompatActivity {
             alertDialog.setTitle("수정 / 삭제");
             alertDialog.setItems(new String[]{"수정", "삭제"}, (dialog, which) -> {
                 if (which == 0) {
-                    updateWordDialog(position);
+                    updateWordDialog(position,apiService);
                 } else if (which == 1) {
-                    deleteWordDialog(position);
+                    deleteWordDialog(position,apiService);
                 }
             }).create().show();
-
             return true;
         });
 
 
         // 저장된 단어들 불러오기
-        loadWords();
+        loadWordsFromServer(apiService);
     }
 
-    @Override
-    protected void onDestroy() {
-        // Activity 생명주기의 onDestroy에서 단어들 저장
-        // aws s3 연결시 필요없을 듯(어차피 저장된거 load만 하니까)
-        super.onDestroy();
-        saveWords();
-    }
 
     // wordListView longClicked -> 수정 Button -> updateWordDialog
-    private void updateWordDialog(int position) {
+    private void updateWordDialog(int position,ApiService apiService) {
         // dialog 생성
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("단어 수정");
@@ -108,10 +125,7 @@ public class MyPadActivity extends AppCompatActivity {
 
             // 수정한 단어, 뜻을 모두 작성했다면
             if (!updateWord.isEmpty() && !updateMeaning.isEmpty()) {
-                wordList.set(position, updateWord + "-" + updateMeaning);
-                adapter.notifyDataSetChanged();
-
-                Toast.makeText(this, "단어가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                updateWordToServer(wordAndMeaning[0],wordAndMeaning[1],updateWord,updateMeaning,apiService);
             } else {
                 Toast.makeText(this, "단어와 뜻을 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
@@ -120,25 +134,67 @@ public class MyPadActivity extends AppCompatActivity {
                 .show();
     }
 
+    private void updateWordToServer(String oldWord,String oldMean,String newWord,String newMean,ApiService apiService){
+        WordUpdateRequest request = new WordUpdateRequest();
+        request.setOldWord(oldWord);
+        request.setNewWord(newWord);
+        request.setOldMean(oldMean);
+        request.setNewMean(newMean);
+
+        apiService.updateMyWord(request).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(MyPadActivity.this, "단어가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    loadWordsFromServer(apiService);
+                }
+                else {
+                    Toast.makeText(MyPadActivity.this, "수정 실패: " + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyPadActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     // wordListView longClicked -> 삭제 button -> deleteWordDialog
-    private void deleteWordDialog(int position) {
+    private void deleteWordDialog(int position, ApiService apiService) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("단어 삭제")
                 .setMessage("정말 이 단어를 삭제하시겠습니까?")
                 .setPositiveButton("삭제", (dialog, which) -> {
-                    // 선택한 단어 삭제
-                    wordList.remove(position);
-                    adapter.notifyDataSetChanged();
-
-                    Toast.makeText(this, "단어가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    String[] wordAndMean = wordList.get(position).split("-");
+                    deleteWordFromServer(wordAndMean[0],wordAndMean[1],apiService);
                 }).setNegativeButton("취소", (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
 
+    private void deleteWordFromServer(String word,String meaning,ApiService apiService){
+        apiService.deleteMyWord(word,meaning).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MyPadActivity.this, "단어가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    loadWordsFromServer(apiService);
+                }else{
+                    Toast.makeText(MyPadActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyPadActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     // 단어 추가 dialog
-    private void addWordDialog() {
+    private void addWordDialog(ApiService apiService) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("단어 추가");
 
@@ -154,15 +210,7 @@ public class MyPadActivity extends AppCompatActivity {
             String meaning = meaningInput.getText().toString().trim();
 
             if (!word.isEmpty() && !meaning.isEmpty()) {
-                // 중복된 단어일 때(이미 등록)
-                if (!isDuplicate(word)) {
-                    wordList.add(word + "-" + meaning);
-                    adapter.notifyDataSetChanged();
-
-                    Toast.makeText(this, "단어가 추가되었습니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "이미 존재하는 단어입니다.", Toast.LENGTH_SHORT).show();
-                }
+                saveWordToServer(word,meaning,apiService);
             } else {
                 Toast.makeText(this, "단어와 뜻을 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
@@ -171,40 +219,56 @@ public class MyPadActivity extends AppCompatActivity {
                 .show();
     }
 
-    // duplicate validation
-    private boolean isDuplicate(String word) {
-        for (String item : wordList) {
-            if (item.startsWith(word)) {
-                return true;
+    private void saveWordToServer(String word, String meaning, ApiService apiService){
+        WordItem wordItem = new WordItem();
+        wordItem.setWord(word);
+        wordItem.setMean(meaning);
+
+        apiService.saveMyWord(wordItem).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(MyPadActivity.this,"단어가 추가 되었습니다.",Toast.LENGTH_SHORT).show();
+                    loadWordsFromServer(apiService);
+                }else{
+                    Toast.makeText(MyPadActivity.this,"단어 추가 실패",Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-        return false;
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyPadActivity.this,"API 오류 : "+t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    // aws s3 사용시 필요 없을 듯?
-    private void saveWords() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    private void loadWordsFromServer(ApiService apiService) {
+        apiService.getMyWords().enqueue(new Callback<List<WordItem>>() {
+            @Override
+            public void onResponse(Call<List<WordItem>> call, Response<List<WordItem>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    wordList.clear();
 
-        StringBuilder wordListString = new StringBuilder();
-        for (String word : wordList) {
-            wordListString.append(word).append(";");
-        }
-        editor.putString(WORD_LIST_KEY, wordListString.toString());
-        editor.apply();
-    }
-
-    // aws s3 사용시 단어 불러오는 logic 수정
-    private void loadWords() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String wordListString = sharedPreferences.getString(WORD_LIST_KEY, "");
-
-        if (!wordListString.isEmpty()) {
-            String[] words = wordListString.split(";");
-            for (String word : words) {
-                wordList.add(word);
+                    // 단어가 없는 경우 처리
+                    if (response.body().isEmpty()) {
+                        Toast.makeText(MyPadActivity.this, "저장된 단어가 없습니다. 단어를 추가해 보세요!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // 단어가 있으면 리스트에 추가
+                        for (WordItem word : response.body()) {
+                            wordList.add(word.getWord() + "-" + word.getMean());
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(MyPadActivity.this, "단어를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
+
+            @Override
+            public void onFailure(Call<List<WordItem>> call, Throwable t) {
+                Toast.makeText(MyPadActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
