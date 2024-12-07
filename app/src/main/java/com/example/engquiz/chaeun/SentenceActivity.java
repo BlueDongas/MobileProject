@@ -186,7 +186,6 @@ public class SentenceActivity extends AppCompatActivity {
             }
         });
 
-
         // Quit button action
         quitBtn.setOnClickListener(view -> {
             timer.cancel(); // Cancel the timer

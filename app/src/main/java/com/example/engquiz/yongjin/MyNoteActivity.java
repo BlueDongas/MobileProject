@@ -30,12 +30,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyPadActivity extends AppCompatActivity {
+public class MyNoteActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "MyPadPrefs";
     private static final String WORD_LIST_KEY = "WordList";
 
-    private MyPadAdapter adapter;
+    private MyNoteAdapter adapter;
     private List<String> wordList;
 
     @Override
@@ -48,7 +48,7 @@ public class MyPadActivity extends AppCompatActivity {
 
         if (token == null || token.isEmpty()) {
             Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MyPadActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MyNoteActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return;
@@ -70,17 +70,17 @@ public class MyPadActivity extends AppCompatActivity {
         goMainButton = findViewById(R.id.go_main_button);
         ImageButton goQuizButton = findViewById(R.id.go_shuenghoon_quiz);
 
-        adapter = new MyPadAdapter(this, wordList);
+        adapter = new MyNoteAdapter(this, wordList);
         wordGridView.setAdapter(adapter);
 
         addWordButton.setOnClickListener(v -> addWordDialog(apiService));
 
         goMainButton.setOnClickListener(v ->  {
-            Intent i = new Intent(MyPadActivity.this, MainActivity.class);
+            Intent i = new Intent(MyNoteActivity.this, MainActivity.class);
             startActivity(i);
         });
         goQuizButton.setOnClickListener(v->{
-            Intent i = new Intent(MyPadActivity.this, SubjectiveQuizActivity.class);
+            Intent i = new Intent(MyNoteActivity.this, SubjectiveQuizActivity.class);
             i.putExtra("Quizflag","myquiz");
             startActivity(i);
         });
@@ -152,17 +152,17 @@ public class MyPadActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(MyPadActivity.this, "단어가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this, "단어가 수정되었습니다.", Toast.LENGTH_SHORT).show();
                     loadWordsFromServer(apiService);
                 }
                 else {
-                    Toast.makeText(MyPadActivity.this, "수정 실패: " + response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this, "수정 실패: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MyPadActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyNoteActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -186,16 +186,16 @@ public class MyPadActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MyPadActivity.this, "단어가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this, "단어가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                     loadWordsFromServer(apiService);
                 }else{
-                    Toast.makeText(MyPadActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MyPadActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyNoteActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -235,16 +235,16 @@ public class MyPadActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(MyPadActivity.this,"단어가 추가 되었습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this,"단어가 추가 되었습니다.",Toast.LENGTH_SHORT).show();
                     loadWordsFromServer(apiService);
                 }else{
-                    Toast.makeText(MyPadActivity.this,"단어 추가 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this,"단어 추가 실패",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MyPadActivity.this,"API 오류 : "+t.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyNoteActivity.this,"API 오류 : "+t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -258,7 +258,7 @@ public class MyPadActivity extends AppCompatActivity {
 
                     // 단어가 없는 경우 처리
                     if (response.body().isEmpty()) {
-                        Toast.makeText(MyPadActivity.this, "저장된 단어가 없습니다. 단어를 추가해 보세요!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyNoteActivity.this, "저장된 단어가 없습니다. 단어를 추가해 보세요!", Toast.LENGTH_SHORT).show();
                     } else {
                         // 단어가 있으면 리스트에 추가
                         for (WordItem word : response.body()) {
@@ -267,13 +267,13 @@ public class MyPadActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(MyPadActivity.this, "단어를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyNoteActivity.this, "단어를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<WordItem>> call, Throwable t) {
-                Toast.makeText(MyPadActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyNoteActivity.this, "API 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

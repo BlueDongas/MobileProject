@@ -11,12 +11,12 @@ import com.example.engquiz.R;
 
 import java.util.List;
 
-public class MyPadAdapter extends BaseAdapter {
+public class MyNoteAdapter extends BaseAdapter {
 
     private final Context context;
     private final List<String> wordList;
 
-    public MyPadAdapter(Context context, List<String> wordList) {
+    public MyNoteAdapter(Context context, List<String> wordList) {
         this.context = context;
         this.wordList = wordList;
     }
