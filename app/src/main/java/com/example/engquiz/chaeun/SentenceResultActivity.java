@@ -27,8 +27,8 @@ public class SentenceResultActivity extends AppCompatActivity {
         // 시간 초과 토스트 메시지
         Toast.makeText(getApplicationContext(), "시간이 초과되었습니다!", Toast.LENGTH_SHORT).show();
 
-        // 정답 리스트
-
+        int correctCount = 0;//맞춘 개수 저장할 변수
+        TextView textViewScore = findViewById(R.id.textViewScore);//맞춘 개수 텍스트 뷰
 
         // Intent 데이터 수신
         Intent intent = getIntent();
@@ -60,10 +60,14 @@ public class SentenceResultActivity extends AppCompatActivity {
                 int endIndex = itemText.length();
                 int darkGreen = Color.rgb(0, 128, 0); // 어두운 초록색
                 spannableString.setSpan(new ForegroundColorSpan(darkGreen), startIndex, endIndex, 0);
+                correctCount++; // 맞춘 개수 증가
             }
 
             strArray.add(spannableString);
         }
+        // 맞춘 개수 TextView에 표시
+        textViewScore.setText("당신의 점수는 " + correctCount + "/" + AnswerList.length+"입니다.");
+
 
         // ListView 설정
         ListView ltv = findViewById(R.id.listview);
