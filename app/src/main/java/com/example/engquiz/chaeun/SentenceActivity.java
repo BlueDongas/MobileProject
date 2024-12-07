@@ -99,6 +99,9 @@ public class SentenceActivity extends AppCompatActivity {
                 intent.putExtra("Qlist", (CharSequence) questionList);// 조정 필요
                 intent.putExtra("userAnswers", userAnswers.toArray(new String[0])); // 답변 배열 전달
                 startActivity(intent);
+                // 시간 초과 토스트 메시지
+                Toast.makeText(getApplicationContext(), "시간이 초과되었습니다!", Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         };
@@ -106,7 +109,7 @@ public class SentenceActivity extends AppCompatActivity {
         // Start timer
         timer.start();
 
-        // Confirm button to save answer
+       // Confirm button to save answer
         confirmBtn.setOnClickListener(view -> {
             String userInput = answerInput.getText().toString().trim();
 
@@ -115,7 +118,9 @@ public class SentenceActivity extends AppCompatActivity {
                 userAnswers.set(currentQuestionIndex, userInput);
 
                 // Disable EditText for current question
-                answerInput.setEnabled(false);
+                answerInput.setEnabled(false); // 입력란 비활성화
+                confirmBtn.setEnabled(false);  // 확인 버튼 비활성화 // 추가된 부분
+
                 Toast.makeText(getApplicationContext(), "답변 저장됨.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "단어를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -124,13 +129,13 @@ public class SentenceActivity extends AppCompatActivity {
 
         // Next question button
         nextSentenceBtn.setOnClickListener(view -> {
-            if(userAnswers.get(currentQuestionIndex).isEmpty()){//답변을 저장하지 않았다면 다음 버튼 비활성화
-                Toast.makeText(getApplicationContext(),"답변을 저장하세요!",Toast.LENGTH_SHORT).show();
+            if (userAnswers.get(currentQuestionIndex).isEmpty()) { // 답변을 저장하지 않았다면 다음 버튼 비활성화
+                Toast.makeText(getApplicationContext(), "답변을 저장하세요!", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (currentQuestionIndex < totalQuestions - 1) {
                 currentQuestionIndex++;
-                //다음 퀴즈 설정
+                // 다음 퀴즈 설정
                 Qtxt.setText(questionList.get(currentQuestionIndex).getExample());
                 Examtxt.setText(questionList.get(currentQuestionIndex).getExplanation());
 
@@ -138,8 +143,16 @@ public class SentenceActivity extends AppCompatActivity {
                 TxtProgress.setText((currentQuestionIndex + 1) + "/" + totalQuestions);
 
                 // Reset EditText for the next question
-                answerInput.setText(userAnswers.get(currentQuestionIndex)); // Load previous answer if exists
-                answerInput.setEnabled(true);
+                String previousAnswer = userAnswers.get(currentQuestionIndex); // 이전 답변 로드
+                answerInput.setText(previousAnswer);
+
+                if (!previousAnswer.isEmpty()) {
+                    answerInput.setEnabled(false); // 이전 답변이 존재하면 입력란 비활성화 // 추가된 부분
+                    confirmBtn.setEnabled(false);  // 확인 버튼 비활성화 // 추가된 부분
+                } else {
+                    answerInput.setEnabled(true);  // 새로 답변을 입력할 경우 활성화
+                    confirmBtn.setEnabled(true);  // 확인 버튼 활성화
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "마지막 질문입니다.", Toast.LENGTH_SHORT).show();
             }
@@ -149,7 +162,7 @@ public class SentenceActivity extends AppCompatActivity {
         prevSentenceBtn.setOnClickListener(view -> {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
-                //이전 퀴즈
+                // 이전 퀴즈
                 Qtxt.setText(questionList.get(currentQuestionIndex).getExample());
                 Examtxt.setText(questionList.get(currentQuestionIndex).getExplanation());
 
@@ -157,12 +170,21 @@ public class SentenceActivity extends AppCompatActivity {
                 TxtProgress.setText((currentQuestionIndex + 1) + "/" + totalQuestions);
 
                 // Reset EditText for the previous question
-                answerInput.setText(userAnswers.get(currentQuestionIndex));
-                answerInput.setEnabled(true);
+                String previousAnswer = userAnswers.get(currentQuestionIndex); // 이전 답변 로드
+                answerInput.setText(previousAnswer);
+
+                if (!previousAnswer.isEmpty()) {
+                    answerInput.setEnabled(false); // 이전 답변이 존재하면 입력란 비활성화 // 추가된 부분
+                    confirmBtn.setEnabled(false);  // 확인 버튼 비활성화 // 추가된 부분
+                } else {
+                    answerInput.setEnabled(true);  // 새로 답변을 입력할 경우 활성화
+                    confirmBtn.setEnabled(true);  // 확인 버튼 활성화
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "첫 질문입니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         // Quit button action
         quitBtn.setOnClickListener(view -> {
