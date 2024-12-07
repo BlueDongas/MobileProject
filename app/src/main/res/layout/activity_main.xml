@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -12,22 +11,28 @@
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EngQuiz 메인 화면"
+        android:text="메인 화면"
+        android:textSize="30sp"
+        android:drawableEnd="@drawable/home_main"
+        android:drawableStart="@drawable/home_main"
+        android:drawablePadding="5dp"
         style="@style/designTextView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
-    <Button
+
+    <!-- 로그아웃 버튼 -->
+    <ImageButton
         android:id="@+id/logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="로그아웃"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/LVspinner"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/button_box1"/>
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_box1"
+        android:contentDescription="로그아웃"
+        android:src="@drawable/logout_main"
+        app:layout_constraintBottom_toTopOf="@+id/go_my_word"
+        app:layout_constraintStart_toStartOf="@+id/go_my_word" />
 
     <!-- LV 텍스트-->
     <TextView
@@ -35,7 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LV 선택"
-        style="@style/designTextView"
+        android:textSize="20sp"
+        android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@id/LVspinner"
         app:layout_constraintBaseline_toBaselineOf="@id/LVspinner"
         app:layout_constraintStart_toStartOf="@+id/LVspinner"
@@ -53,38 +59,62 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/lv_text" />
 
-<!--    나만의 단어장 가기 -->
+<!--    단어장 -->
     <Button
         android:id="@+id/go_my_word"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         style="@style/designButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_box1"
-        app:layout_constraintBottom_toTopOf="@id/go_chaeun_quiz"
+        android:drawableEnd="@drawable/notepad"
+        android:paddingLeft="145dp"
+        android:paddingRight="145dp"
+        android:textSize="20dp"
+        android:text="단어장"
+        app:layout_constraintBottom_toTopOf="@+id/go_chaeun_quiz"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        android:text="나만의 단어장"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- 채은 퀴즈 버튼 -->
+<!--    채은 퀴즈 버튼-->
     <Button
         android:id="@+id/go_chaeun_quiz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="채은이가 만든 거로 이동"
-        app:layout_constraintBottom_toTopOf="@id/go_shuenghoon_quiz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/button_box1"
         style="@style/designButton"
-        android:layout_marginBottom="16dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_box1"
+        android:drawableEnd="@drawable/chaeun"
+        android:paddingLeft="155dp"
+        android:paddingRight="155dp"
+        android:text="채은"
+        app:layout_constraintBottom_toTopOf="@id/go_shuenghoon_quiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+<!--    -->
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/address"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="바보"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Body2"-->
+<!--        android:drawableEnd="@drawable/quiz"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/go_shuenghoon_quiz"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
     <!-- 승훈 퀴즈 버튼 -->
     <Button
         android:id="@+id/go_shuenghoon_quiz"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="승훈이가 만든 거로 이동"
+        android:text="승훈"
+        android:drawableEnd="@drawable/sheunghoon"
+        android:paddingLeft="155dp"
+        android:paddingRight="155dp"
         app:layout_constraintBottom_toTopOf="@id/go_yongjin_quiz"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +127,10 @@
         android:id="@+id/go_yongjin_quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="용진이가 만든 거로 이동"
+        android:text="용진"
+        android:paddingLeft="155dp"
+        android:paddingRight="155dp"
+        android:drawableEnd="@drawable/yongjin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

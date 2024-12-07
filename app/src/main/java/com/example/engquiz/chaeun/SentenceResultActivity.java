@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class SentenceResultActivity extends AppCompatActivity {
         ArrayList<String> Qlist = getIntent().getStringArrayListExtra("Qlist");
         String[] userAnswers = intent.getStringArrayExtra("userAnswers");
 
-        Button goMain = findViewById(R.id.go_main);
+        ImageButton goMain = findViewById(R.id.go_main);
 
         // 결과 리스트 생성
         ArrayList<SpannableString> strArray = new ArrayList<>();

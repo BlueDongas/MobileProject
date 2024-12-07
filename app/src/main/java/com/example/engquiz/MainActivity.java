@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.content.SharedPreferences;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button goSheunghoon;
     private Button goYongjin;
     private Button goMypad;
-    private Button logoutBtn;
+    private ImageButton logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

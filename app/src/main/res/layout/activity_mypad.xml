@@ -10,13 +10,16 @@
     <!-- 제목 TextView -->
     <TextView
         android:id="@+id/mypad_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="나만의 단어장"
         android:gravity="center"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_margin="24sp"
+        android:textSize="30sp"
+        android:layout_margin="12sp"
+        android:drawableStart="@drawable/notepad"
+        android:drawableEnd="@drawable/notepad"
+        android:drawablePadding="5dp"
         style="@style/designTextView" />
 
     <GridView
@@ -56,14 +59,15 @@
             android:src="@drawable/home_outline_mypad"
             android:contentDescription="메인으로 이동"
             />
-        <Button
+
+        <ImageButton
             android:id="@+id/go_shuenghoon_quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TransparentButton2"
-            android:text="퀴즈"
+            android:src="@drawable/notequiz_mypad"
+            android:contentDescription="퀴즈 이동"
             android:layout_margin="10dp"/>
-
     </LinearLayout>
 
 </LinearLayout>

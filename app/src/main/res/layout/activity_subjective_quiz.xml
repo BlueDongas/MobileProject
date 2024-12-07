@@ -60,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="16dp"
-        android:text="제출" />
+        android:background="@drawable/button_box2"
+        style="@style/TransparentButton"
+        android:text="확인" />
 </LinearLayout>

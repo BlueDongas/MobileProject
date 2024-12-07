@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,12 +69,12 @@ public class SentenceActivity extends AppCompatActivity {
         Examtxt = findViewById(R.id.TxtExp);
         ProgressBar progressBar = findViewById(R.id.progressBar);
         TextView TxtProgress = findViewById(R.id.Txtprogress);
-        Button nextSentenceBtn = findViewById(R.id.nextSentenceBtn);
-        Button prevSentenceBtn = findViewById(R.id.prevSentenceBtn);
+        ImageButton nextSentenceBtn = findViewById(R.id.nextSentenceBtn);
+        ImageButton prevSentenceBtn = findViewById(R.id.prevSentenceBtn);
         TextView timerTxt = findViewById(R.id.timerView);
         EditText answerInput = findViewById(R.id.answerInput);
         Button confirmBtn = findViewById(R.id.confirmBtn);
-        Button quitBtn = findViewById(R.id.quitBtn); // 포기하기 버튼
+        ImageButton quitBtn = findViewById(R.id.quitBtn); // 포기하기 버튼
 
 
 

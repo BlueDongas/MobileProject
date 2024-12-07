@@ -7,11 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +21,8 @@ import com.example.engquiz.RetrofitClient;
 import com.example.engquiz.WordItem;
 import com.example.engquiz.WordUpdateRequest;
 import com.example.engquiz.config.LoginActivity;
-import com.example.engquiz.sheunghoon.SubjectiveActivity;
 import com.example.engquiz.sheunghoon.SubjectiveQuizActivity;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +37,6 @@ public class MyPadActivity extends AppCompatActivity {
 
     private MyPadAdapter adapter;
     private List<String> wordList;
-    private Button goQuizButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +68,7 @@ public class MyPadActivity extends AppCompatActivity {
         ImageButton goMainButton = findViewById(R.id.go_main_button);
         addWordButton = findViewById(R.id.mypad_word_add);
         goMainButton = findViewById(R.id.go_main_button);
-        goQuizButton = findViewById(R.id.go_shuenghoon_quiz);
+        ImageButton goQuizButton = findViewById(R.id.go_shuenghoon_quiz);
 
         adapter = new MyPadAdapter(this, wordList);
         wordGridView.setAdapter(adapter);

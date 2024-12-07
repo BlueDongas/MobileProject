@@ -14,9 +14,11 @@
         android:textSize="24sp"
         android:padding="16dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/go_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="메인 화면으로 이동"/>
+        android:src="@drawable/home_outline_mypad"
+        style="@style/TransparentButton2"
+        android:contentDescription="메인으로 이동"/>
 </LinearLayout>

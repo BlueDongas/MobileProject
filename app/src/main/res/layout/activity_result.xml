@@ -17,11 +17,10 @@
     <ImageButton
         android:id="@+id/go_main"
         style="@style/TransparentButton2"
-        android:layout_margin="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_box1"
-        android:src="@drawable/home_outline"
+        android:src="@drawable/home_outline_mypad"
         android:contentDescription="메인 화면으로 이동"
          />
 </LinearLayout>

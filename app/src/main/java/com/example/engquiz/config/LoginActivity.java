@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.login_button);
         signupButton = findViewById(R.id.signup_button);
-        goMainButton = findViewById(R.id.go_main_button);
 
         loginButton.setOnClickListener(v -> {
             String userId = loginUserid.getText().toString().trim(); // 입력된 ID 가져오기

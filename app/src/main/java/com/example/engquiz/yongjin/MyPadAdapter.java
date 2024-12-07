@@ -36,7 +36,7 @@ public class MyPadAdapter extends BaseAdapter {
         return position;
     }
 
-    // Adapter를 보여줘야 하므로 무조건 구현
+    // 시험에도 나오겠지만 adapter를 구현하여 view와 data 연걸
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

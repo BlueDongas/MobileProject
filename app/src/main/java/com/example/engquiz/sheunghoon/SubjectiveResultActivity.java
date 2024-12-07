@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class SubjectiveResultActivity extends AppCompatActivity {
 
         textViewScore = findViewById(R.id.textViewScore);
 
-        Button goMain = findViewById(R.id.go_main);
+        ImageButton goMain = findViewById(R.id.go_main);
 
         // 퀴즈 점수 받기
         int score = getIntent().getIntExtra("score", 0);
