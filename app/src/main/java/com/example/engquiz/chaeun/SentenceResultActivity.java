@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +68,7 @@ public class SentenceResultActivity extends AppCompatActivity {
             strArray.add(spannableString);
         }
         // 맞춘 개수 TextView에 표시
-        textViewScore.setText("당신의 점수는 " + correctCount + "/" + AnswerList.length+"입니다.");
+        textViewScore.setText("당신의 점수는 " + correctCount + "/" + AnswerList.size()+"입니다.");
 
 
         // ListView 설정
